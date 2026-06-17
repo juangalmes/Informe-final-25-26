@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NAUTIPAINTS · Temporada 2025-2026</title>
+<style>
+:root{
+  --navy:#0b1e2d;--gold:#c99b22;--gold2:#e8b930;--accent:#1a9fd4;
+  --green:#1e9e55;--red:#d43333;--orange:#d4721a;--purple:#8b3fad;
+  --card:#ffffff;--border:#d4e6f0;--text:#1a2636;--muted:#5a7a8e;--bg:#f0f6fa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Source Sans 3','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
+header{background:linear-gradient(135deg,#2d0a0a 0%,#4a1010 60%,#7a1a1a 100%);color:#fff;padding:48px 40px 40px;border-bottom:4px solid var(--gold);position:relative;overflow:hidden;text-align:center}
+header::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
+.anchor{font-size:64px;line-height:1;margin-bottom:16px;position:relative;z-index:1}
+.header-season{font-size:11px;letter-spacing:3px;color:var(--gold2);text-transform:uppercase;margin-bottom:10px;font-weight:700;position:relative;z-index:1}
+.header-title{font-size:36px;font-weight:900;letter-spacing:1px;position:relative;z-index:1}
+.header-title span{color:var(--gold2)}
+.header-sub{font-size:14px;color:rgba(255,255,255,.55);margin-top:8px;position:relative;z-index:1}
+.badges{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;justify-content:center;position:relative;z-index:1}
+.badge{padding:5px 16px;border-radius:20px;font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase}
+.badge-blue{background:rgba(26,159,212,.25);border:1px solid var(--accent);color:#9dd8f5}
+.badge-gold{background:rgba(201,155,34,.25);border:1px solid var(--gold);color:var(--gold2)}
+.badge-green{background:rgba(30,158,85,.25);border:1px solid var(--green);color:#7de4a3}
+.badge-orange{background:rgba(212,114,26,.25);border:1px solid var(--orange);color:#f5b066}
+
+main{flex:1;padding:48px 36px 64px;max-width:1200px;margin:0 auto;width:100%}
+
+.section-label{font-size:11px;font-weight:800;letter-spacing:2.5px;color:var(--accent);text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:10px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+.section-label::before{content:'';display:inline-block;width:4px;height:16px;background:var(--gold);border-radius:2px;flex-shrink:0}
+
+/* COMPARATIVE - destacado */
+.comp-link{display:block;text-decoration:none;background:linear-gradient(135deg,#0b1e2d,#0f3050,#1a4f72);border:2px solid var(--gold);border-radius:18px;padding:28px 32px;color:#fff;margin-bottom:32px;position:relative;overflow:hidden;transition:transform .15s,box-shadow .15s}
+.comp-link:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(11,30,45,.35)}
+.comp-link::before{content:'';position:absolute;top:-30px;right:-30px;width:150px;height:150px;border-radius:50%;background:rgba(201,155,34,.1)}
+.comp-icon{font-size:40px;margin-bottom:12px}
+.comp-title{font-size:22px;font-weight:900;letter-spacing:.5px;color:var(--gold2);margin-bottom:6px}
+.comp-sub{font-size:13px;color:rgba(255,255,255,.6);line-height:1.5}
+.comp-arrow{position:absolute;right:28px;top:50%;transform:translateY(-50%);font-size:28px;color:var(--gold2);opacity:.7}
+
+/* PROYECTO CARDS */
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.proj-link{display:block;text-decoration:none;border-radius:16px;padding:24px 22px;color:#fff;position:relative;overflow:hidden;transition:transform .15s,box-shadow .15s}
+.proj-link:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(0,0,0,.25)}
+.proj-link::before{content:'';position:absolute;top:-20px;right:-20px;width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,.08)}
+.p-sea{background:linear-gradient(135deg,#1a0e2d,#4a1a7a)}
+.p-avalon{background:linear-gradient(135deg,#1a3d5c,#2060a0)}
+.p-lamm{background:linear-gradient(135deg,#2d1a0e,#7a3d15)}
+.p-thanuja{background:linear-gradient(135deg,#0e2d1a,#1a7a3d)}
+.proj-icon{font-size:28px;margin-bottom:10px}
+.proj-name{font-size:20px;font-weight:900;letter-spacing:.5px}
+.proj-ref{font-size:11px;opacity:.65;margin-top:3px}
+.proj-loc{font-size:11px;opacity:.8;margin-top:6px}
+.proj-period{font-size:11px;font-weight:700;opacity:.85;margin-top:8px}
+.proj-status{display:inline-block;margin-top:12px;padding:3px 10px;border-radius:10px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px}
+.st-green{background:rgba(30,158,85,.35);border:1px solid rgba(30,158,85,.6);color:#7de4a3}
+.st-orange{background:rgba(212,114,26,.35);border:1px solid rgba(212,114,26,.6);color:#f5b066}
+.proj-arrow{position:absolute;right:16px;bottom:16px;font-size:18px;opacity:.5}
+
+footer{text-align:center;padding:20px;color:var(--muted);font-size:11px;border-top:2px solid var(--border);background:var(--card);letter-spacing:.5px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="anchor">⚓</div>
+  <div class="header-season">Nautipaints · Port Denia + Freire Vigo</div>
+  <div class="header-title">INFORMES DE PROYECTO <span>TEMPORADA 2025-2026</span></div>
+  <div class="header-sub">PM: Juan Galmés · 4 proyectos · Boero YachtCoatings · Jotun MegaGloss AC</div>
+  <div class="badges">
+    <span class="badge badge-green">3 Proyectos cerrados</span>
+    <span class="badge badge-orange">AVALON en remates</span>
+    <span class="badge badge-blue">Freire Vigo + Port Denia</span>
+    <span class="badge badge-gold">Generado 16/06/2026</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- COMPARATIVO -->
+  <div class="section-label" style="margin-top:0">Informe comparativo</div>
+  <a class="comp-link" href="comparativo.html">
+    <div class="comp-icon">📊</div>
+    <div class="comp-title">COMPARATIVO MULTI-PROYECTO</div>
+    <div class="comp-sub">Análisis global de la temporada — KPIs, rendimiento por empresa, tabla comparativa, gráficas radar, impacto climático, calidad de cierre y riesgos pendientes · SEABISCUIT · AVALON · LAMMOUCHE · THANUJA</div>
+    <div class="comp-arrow">→</div>
+  </a>
+
+  <!-- INCIDENCIAS -->
+  <div class="section-label" style="margin-top:28px">Informe de incidencias y mejoras</div>
+  <a class="comp-link" href="incidencias_mejoras.html" style="background:linear-gradient(135deg,#fff5ea,#fff0e0);border-color:#f0c890">
+    <div class="comp-icon" style="color:var(--orange)">⚠️</div>
+    <div class="comp-title" style="color:#7a3d10">INCIDENCIAS Y OPORTUNIDADES DE MEJORA</div>
+    <div class="comp-sub">Proyectos con desplazamiento fuera de Palma · Seabiscuit (Vigo) + Port Denia · Material, containers, logística, personal, astilleros, gestión de proyectos, subcontratas · Propuestas para la temporada 2026-2027</div>
+    <div class="comp-arrow" style="color:var(--orange)">→</div>
+  </a>
+
+  <!-- INDIVIDUALES -->
+  <div class="section-label">Informes individuales por proyecto</div>
+  <div class="proj-grid">
+
+    <a class="proj-link p-sea" href="seabiscuit.html">
+      
+      <div class="proj-name">SEABISCUIT</div>
+      <div class="proj-ref">Refs. 6256 / 6298 / 6307 / 6332</div>
+      <div class="proj-loc">📍 Freire Shipyard, Vigo · S/Y · 41,83 m</div>
+      <div class="proj-period">Dic 2025 → Feb 2026</div>
+      <div class="proj-status st-green">✓ Cerrado</div>
+      <div class="proj-arrow">→</div>
+    </a>
+
+    <a class="proj-link p-avalon" href="avalon.html">
+      <div class="proj-icon">⚓</div>
+      <div class="proj-name">AVALON</div>
+      <div class="proj-ref">Refs. P-6266 / 6338 / 6365 / 6455</div>
+      <div class="proj-loc">📍 Port Denia · M/Y · 46 m</div>
+      <div class="proj-period">Nov 2025 → Jun 2026</div>
+      <div class="proj-status st-orange">⚠ En remates</div>
+      <div class="proj-arrow">→</div>
+    </a>
+
+    <a class="proj-link p-lamm" href="lammouche.html">
+      <div class="proj-icon">⚓</div>
+      <div class="proj-name">LAMMOUCHE</div>
+      <div class="proj-ref">Refs. P-6339 / 6351 / 6359 / 6390 / 6398</div>
+      <div class="proj-loc">📍 Port Denia · M/Y</div>
+      <div class="proj-period">Ene 2026 → 20 Abr 2026</div>
+      <div class="proj-status st-green">✓ Cerrado 20/04</div>
+      <div class="proj-arrow">→</div>
+    </a>
+
+    <a class="proj-link p-thanuja" href="thanuja.html">
+      <div class="proj-icon">⚓</div>
+      <div class="proj-name">THANUJA</div>
+      <div class="proj-ref">Ref. P-6344</div>
+      <div class="proj-loc">📍 Port Denia · M/Y · 49,9 m</div>
+      <div class="proj-period">Mar 2026 → 14 Abr 2026</div>
+      <div class="proj-status st-green">✓ Cerrado 14/04</div>
+      <div class="proj-arrow">→</div>
+    </a>
+
+  </div>
+
+</main>
+
+<footer>NAUTIPAINTS · Temporada 2025-2026 · PM Juan Galmés · Port Denia + Freire Vigo</footer>
+
+</body>
+</html>
