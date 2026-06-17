@@ -1,31 +1,21 @@
-# Informe AVALON
+# Nautipaints — Informes de Proyecto · Temporada 2025-2026
 
-Este repositorio contiene el informe HTML del proyecto AVALON preparado para publicarse con GitHub Pages.
+Informes de gestión de proyectos de pintura náutica de alto rendimiento.  
+**PM:** Juan Galmés · **Empresa:** Sea Spray Nauti SL (Nautipaints)
 
-## Archivos
+---
 
-- `index.html`: informe principal. GitHub Pages lo abrirá automáticamente como página de inicio.
-- `README.md`: estas instrucciones.
+## Proyectos
 
-## Publicación rápida con GitHub Pages
+| Informe | Proyecto | Ubicación | Estado |
+|---|---|---|---|
+| [Comparativo](comparativo.html) | Multi-proyecto | Vigo + Port Denia | — |
+| [SEABISCUIT](seabiscuit.html) | S/Y Seabiscuit · 41,83m | Freire Shipyard, Vigo | ✓ Cerrado |
+| [AVALON](avalon.html) | M/Y Avalon 101 · 46m | Port Denia | En remates |
+| [LAMMOUCHE](lammouche.html) | M/Y Lammouche | Port Denia | ✓ Cerrado 20/04 |
+| [THANUJA](thanuja.html) | M/Y Thanuja · 49,9m | Port Denia | ✓ Cerrado 14/04 |
+| [Incidencias y Mejoras](incidencias_mejoras.html) | Proyectos externos | Vigo + Port Denia | Propuestas 2026-27 |
 
-1. Entra en https://github.com e inicia sesión.
-2. Pulsa **New repository**.
-3. Nombre recomendado: `informe-avalon`.
-4. Marca el repositorio como **Public** si quieres que lo pueda ver cualquiera.
-5. Pulsa **Create repository**.
-6. En el repositorio nuevo, pulsa **Add file** → **Upload files**.
-7. Sube `index.html` y `README.md`.
-8. Pulsa **Commit changes**.
-9. Ve a **Settings** → **Pages**.
-10. En **Build and deployment**, selecciona:
-    - Source: **Deploy from a branch**
-    - Branch: **main**
-    - Folder: **/root**
-11. Pulsa **Save**.
-12. Espera unos minutos. GitHub mostrará una URL del tipo:
-    `https://TU-USUARIO.github.io/informe-avalon/`
+---
 
-## Actualizar el informe más adelante
-
-Cuando tengas una versión nueva, sustituye el archivo `index.html` por el nuevo HTML y pulsa **Commit changes**. La web se actualizará sola en GitHub Pages.
+*Nautipaints · Temporada 2025-2026 · Generado junio 2026*

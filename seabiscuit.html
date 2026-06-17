@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INFORME SEABISCUIT 25-26 · NAUTIPAINTS</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --navy:#0b1e2d;--gold:#c99b22;--gold2:#e8b930;--blue:#1e7fb5;--accent:#1a9fd4;
+  --green:#1e9e55;--red:#d43333;--orange:#d4721a;--purple:#8b3fad;
+  --card:#ffffff;--border:#d4e6f0;--text:#1a2636;--muted:#5a7a8e;--bg:#f0f6fa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Source Sans 3','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+header{background:linear-gradient(135deg,#2d0a0a 0%,#4a1010 60%,#7a1a1a 100%);color:#fff;padding:32px 40px 28px;border-bottom:4px solid var(--gold);position:relative;overflow:hidden}
+header::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
+.header-inner{display:flex;align-items:flex-start;gap:28px;position:relative;z-index:1}
+.anchor-icon{font-size:52px;line-height:1}
+.header-text{flex:1}
+.header-season{font-size:11px;letter-spacing:3px;color:var(--gold2);text-transform:uppercase;margin-bottom:6px;font-weight:700}
+.header-title{font-size:30px;font-weight:800;letter-spacing:1px;line-height:1.15}
+.header-title span{color:var(--gold2)}
+.header-sub{font-size:13px;color:rgba(255,255,255,.6);margin-top:5px}
+.header-badges{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.badge{padding:5px 14px;border-radius:20px;font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase}
+.badge-blue{background:rgba(26,159,212,.25);border:1px solid var(--accent);color:#9dd8f5}
+.badge-gold{background:rgba(201,155,34,.25);border:1px solid var(--gold);color:var(--gold2)}
+.badge-green{background:rgba(30,158,85,.25);border:1px solid var(--green);color:#7de4a3}
+.badge-purple{background:rgba(139,63,173,.25);border:1px solid var(--purple);color:#c89de0}
+main{padding:28px 36px 56px;max-width:1480px;margin:0 auto}
+.section-title{font-size:13px;font-weight:800;letter-spacing:2.5px;color:var(--accent);text-transform:uppercase;margin:36px 0 16px;display:flex;align-items:center;gap:10px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+.section-title::before{content:'';display:inline-block;width:4px;height:18px;background:var(--gold);border-radius:2px;flex-shrink:0}
+.notice{border-radius:10px;padding:14px 18px;margin-bottom:20px;display:flex;gap:14px;align-items:flex-start;font-size:13px}
+.notice-blue{background:#e8f5fb;border:1px solid #a8d8ee}
+.notice-orange{background:#fff5ea;border:1px solid #f0c890}
+.notice-green{background:#edfaf2;border:1px solid #90dbb0}
+.notice-purple{background:#f5f0fc;border:1px solid #c8a8e8}
+.notice strong{color:var(--text)}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:6px}
+.kpi-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;position:relative;overflow:hidden}
+.kpi-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.kpi-card.c-blue::after{background:var(--accent)}.kpi-card.c-gold::after{background:var(--gold)}
+.kpi-card.c-green::after{background:var(--green)}.kpi-card.c-red::after{background:var(--red)}
+.kpi-card.c-orange::after{background:var(--orange)}.kpi-card.c-purple::after{background:var(--purple)}
+.kpi-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:7px;font-weight:700}
+.kpi-value{font-size:24px;font-weight:900;color:var(--text);line-height:1}
+.kpi-value.sm{font-size:19px}
+.kpi-sub{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:18px}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 22px;overflow:hidden}
+.card-title{font-size:12px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.card-title .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.data-table{width:100%;border-collapse:collapse;font-size:12px}
+.data-table th{background:#eaf5fa;color:var(--accent);font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:9px 12px;text-align:left;border-bottom:2px solid var(--border)}
+.data-table td{padding:8px 12px;border-bottom:1px solid #e8eff5;vertical-align:top}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:#f5fbfe}
+.data-table tfoot td{font-weight:800;background:#f0f8fc;border-top:2px solid var(--border)}
+.num{text-align:right;font-weight:700}
+.tag{display:inline-block;padding:2px 8px;border-radius:8px;font-size:10px;font-weight:800}
+.tag-blue{background:#daeef8;color:#1463a0}.tag-green{background:#daf4e7;color:#145c30}
+.tag-orange{background:#fef0de;color:#8c4a10}.tag-red{background:#fee8e6;color:#8c1a1a}
+.tag-purple{background:#f0e8f8;color:#5a1a8c}.tag-gold{background:#fef7e0;color:#7a5c00}
+.good{color:var(--green)!important;font-weight:700}.bad{color:var(--red)!important;font-weight:700}
+.warn{color:var(--orange)!important;font-weight:700}.gold{color:var(--gold)!important}
+.acc{color:var(--accent)!important}.muted{color:var(--muted)}
+.prog-label{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:5px;margin-top:10px;font-weight:600}
+.prog-bar{height:8px;background:#e4eff5;border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;border-radius:4px}
+.pf-green{background:linear-gradient(90deg,#14753e,var(--green))}.pf-orange{background:linear-gradient(90deg,#a04010,var(--orange))}
+.pf-red{background:linear-gradient(90deg,#8c1a1a,var(--red))}.pf-blue{background:linear-gradient(90deg,#0e4a7a,var(--accent))}
+.pf-gold{background:linear-gradient(90deg,#7a5000,var(--gold))}.pf-purple{background:linear-gradient(90deg,#5a1a8c,var(--purple))}
+.timeline{display:grid;gap:10px}
+.tl-item{display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:start;font-size:12px}
+.tl-date{color:var(--gold);font-weight:800;font-size:12px}
+.tl-body{border-left:2px solid var(--border);padding-left:12px;color:var(--text);line-height:1.5}
+.tl-body strong{color:var(--accent)}
+.emp-row{display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid var(--border);font-size:12px}
+.emp-row:last-child{border-bottom:none}
+.emp-name{width:170px;font-weight:700}
+.emp-bar-wrap{flex:1}
+.paint-system{border-radius:10px;overflow:hidden;border:1px solid var(--border);margin-bottom:14px}
+.paint-system-header{padding:10px 16px;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#fff}
+.ps-awlgrip{background:linear-gradient(90deg,#2d1a40,#5a2080)}
+.paint-zone{padding:12px 16px;border-bottom:1px solid #e8f2f8;font-size:12px}
+.paint-zone:last-child{border-bottom:none}
+.paint-zone-name{font-weight:800;color:var(--accent);margin-bottom:6px;font-size:11px;text-transform:uppercase;letter-spacing:.8px}
+.paint-layer{display:flex;align-items:flex-start;gap:10px;padding:3px 0;font-size:11px;border-bottom:1px solid #f0f8fc}
+.paint-layer:last-child{border-bottom:none}
+.layer-num{background:var(--accent);color:#fff;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;flex-shrink:0;margin-top:1px}
+.layer-product{flex:1;font-weight:700;color:var(--text)}
+.layer-ref{color:var(--muted);font-size:10px}
+.layer-color{padding:1px 6px;border-radius:4px;font-size:9px;font-weight:800;background:#f0f8fc;color:var(--accent)}
+.layer-dft{font-size:10px;color:var(--muted);white-space:nowrap}
+.chart-wrap{position:relative;min-height:200px}
+footer{text-align:center;padding:20px;color:var(--muted);font-size:11px;border-top:2px solid var(--border);background:var(--card);margin-top:8px;letter-spacing:.5px}
+@media print{body{background:#fff}.card,.kpi-card{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    
+    <div class="header-text">
+      <div class="header-season">Nautipaints · Freire Shipyard, Vigo · Temporada 2025-2026</div>
+      <div class="header-title">INFORME DE PROYECTO — <span>SEABISCUIT 25-26</span></div>
+      <div class="header-sub">S/Y Seabiscuit · LOA 41,83 m · Holland Jachtbouw · Cliente: Álvaro Méndez (Freire) · Refs. 6256 / 6298 / 6307 / 6332 · PM: Juan Galmés</div>
+      <div class="header-badges">
+        <span class="badge badge-green">✓ CERRADO</span>
+        <span class="badge badge-purple">Awlgrip — Akzo Nobel</span>
+        <span class="badge badge-gold">Freire Shipyard · Vigo</span>
+        <span class="badge badge-blue">Dic 2025 → Feb 2026</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<div class="notice notice-green" style="margin-top:24px">
+  <span style="font-size:22px">✅</span>
+  <div><strong>Primer proyecto de la temporada 2025-2026.</strong> Dirigido directamente por Juan Galmés en el astillero Freire (Vigo). Sistema de pintura completo Awlgrip (Akzo Nobel) sobre S/Y Seabiscuit — velero 41,83 m LOA, construcción Holland Jachtbouw. <strong>Proyecto cerrado con carta de aceptación firmada.</strong> Una vez finalizado, Juan Galmés se desplaza a Port Denia el <strong>14/02/2026</strong> para asumir los proyectos AVALON, LAMMOUCHE y THANUJA.</div>
+</div>
+
+<!-- KPIs -->
+<div class="section-title">Resumen ejecutivo — KPIs del proyecto</div>
+<div class="kpi-grid">
+  <div class="kpi-card c-purple"><div class="kpi-label">Obra principal (Topsides)</div><div class="kpi-value sm">6256</div><div class="kpi-sub">SEABISCUIT.TOP SIDES · S/Y Seabiscuit</div></div>
+  <div class="kpi-card c-gold"><div class="kpi-label">Ventas facturadas (6256)</div><div class="kpi-value sm">157.847 €</div><div class="kpi-sub">Obra principal Topsides</div></div>
+  <div class="kpi-card c-green"><div class="kpi-label">Beneficio (6256)</div><div class="kpi-value sm">118.938 €</div><div class="kpi-sub">Margen 75,4% sobre ventas</div></div>
+  <div class="kpi-card c-blue"><div class="kpi-label">Coste total (6256)</div><div class="kpi-value sm">38.909 €</div><div class="kpi-sub">MO 12.522 € + Mat. 26.387 €</div></div>
+  <div class="kpi-card c-orange"><div class="kpi-label">Horas previstas (6256)</div><div class="kpi-value sm">2.245 h</div><div class="kpi-sub">MO presupuestada</div></div>
+  <div class="kpi-card c-orange"><div class="kpi-label">Horas reales (6256)</div><div class="kpi-value sm">1.107 h</div><div class="kpi-sub">MO real registrada — 49,3% sobre prev.</div></div>
+  <div class="kpi-card c-blue"><div class="kpi-label">Obras totales</div><div class="kpi-value">4</div><div class="kpi-sub">6256 · 6298 · 6307 · 6332</div></div>
+  <div class="kpi-card c-green"><div class="kpi-label">Estado</div><div class="kpi-value sm" style="font-size:14px">CERRADO ✓</div><div class="kpi-sub">Carta de aceptación firmada</div></div>
+</div>
+
+<!-- DESGLOSE OBRAS -->
+<div class="section-title">Desglose por obras</div>
+<div class="card" style="overflow-x:auto;margin-bottom:16px">
+  <div class="card-title"><div class="dot" style="background:var(--purple)"></div>Tabla de obras del proyecto</div>
+  <table class="data-table">
+    <thead>
+      <tr><th>Obra</th><th>Descripción</th><th>H. Previstas</th><th>H. Reales</th><th>Coste MO</th><th>Coste Mat.</th><th>Coste Total</th><th>Facturado</th><th>Estado</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>6256</strong></td>
+        <td>SEABISCUIT.TOP SIDES — Topsides, Waterline, Inner Bulwarks, Cockpit, Rig</td>
+        <td class="num">2.245 h</td>
+        <td class="num good">1.107 h</td>
+        <td class="num">12.522 €</td>
+        <td class="num">26.387 €</td>
+        <td class="num">38.909 €</td>
+        <td class="num good">157.847 €</td>
+        <td><span class="tag tag-green">Cerrada ✓</span></td>
+      </tr>
+      <tr>
+        <td><strong>6307</strong></td>
+        <td>SEABISCUIT.FAIRING WORKS — Masillas y fairing admin (Awlfair D8200/D7222)</td>
+        <td class="num muted">—</td>
+        <td class="num">131 h</td>
+        <td class="num muted">N/D</td>
+        <td class="num muted">N/D</td>
+        <td class="num muted">N/D</td>
+        <td class="num muted">N/D</td>
+        <td><span class="tag tag-green">Cerrada ✓</span></td>
+      </tr>
+      <tr>
+        <td><strong>6298</strong></td>
+        <td>SEABISCUIT.PEELING WORKS — Trabajos de peeling</td>
+        <td class="num muted">—</td>
+        <td class="num">540 h</td>
+        <td class="num">21.349 €</td>
+        <td class="num">0 €</td>
+        <td class="num">21.349 €</td>
+        <td class="num good">47.304 €</td>
+        <td><span class="tag tag-green">Cerrada ✓</span></td>
+      </tr>
+      <tr>
+        <td><strong>6332</strong></td>
+        <td>SEABISCUIT.BAÑERA CENTRAL — Cockpit central</td>
+        <td class="num">413 h</td>
+        <td class="num">308 h</td>
+        <td class="num">11.510 €</td>
+        <td class="num">4.423 €</td>
+        <td class="num">15.933 €</td>
+        <td class="num good">26.226 €</td>
+        <td><span class="tag tag-green">Cerrada ✓</span></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr><td><strong>TOTAL SEABISCUIT</strong></td><td></td><td class="num">2.658 h</td><td class="num good">2.086 h</td><td class="num">45.381 €*</td><td class="num">30.810 €*</td><td class="num">76.191 €*</td><td class="num good">231.377 €*</td><td><span class="tag tag-green">Cerrado ✓</span></td></tr>
+    </tfoot>
+  </table>
+  <p class="muted" style="margin-top:8px;font-size:11px">* Totales parciales: obra 6307 sin datos financieros (XLS formato legacy inaccesible); costes e ingresos de 6307 no incluidos. H. Reales totales: 1.107 h (6256) + 131 h (6307) + 540 h (6298) + 308 h (6332) = 2.086 h confirmadas. H. Previstas: 2.245 h (6256) + 413 h (6332) = 2.658 h (6298 y 6307 sin previstas registradas).</p>
+</div>
+
+<!-- TIMELINE + DATOS -->
+<div class="grid-2">
+  <div class="card">
+    <div class="card-title"><div class="dot" style="background:var(--purple)"></div>Timeline operativo</div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-date">Dic 2025</div><div class="tl-body"><strong>Inicio del proyecto.</strong> Primer proyecto de la temporada. Juan Galmés dirige directamente desde el astillero Freire (Vigo). Evaluación del estado del casco — S/Y Seabiscuit, 41,83 m LOA, Holland Jachtbouw.</div></div>
+      <div class="tl-item"><div class="tl-date">Dic 2025 – Ene 2026</div><div class="tl-body">Inicio trabajos de preparación de superficie. <strong>Peeling (obra 6298)</strong>: retirada de capas antiguas. <strong>Fairing (obra 6307)</strong>: aplicación masillas Awlfair D8200 (gruesa) y D7222 Fast Catalyst (fina) en zonas de corrección de formas. Personal: 993 DOST (griegos), 221 SEMPERE, 375 ROSA MORENO.</div></div>
+      <div class="tl-item"><div class="tl-date">Ene – Feb 2026</div><div class="tl-body">Sistema completo Awlgrip topsides y zonas secundarias. Envío de materiales a Sagunto (35,4 galones, multireferencia). Gestión subpresupuesto piezas taller (9523/02 ≈ 2.600 € T&M). Tarifa hora workshop: 72 €/h.</div></div>
+      <div class="tl-item"><div class="tl-date">Feb 2026</div><div class="tl-body"><strong>Bañera central (obra 6332).</strong> Acabado non-skid Griptex en zonas de tránsito. QC final aplicaciones. Topcoat Awlcraft 3000 TF5001 (Majestic Blue) en topsides — resultado conforme especificación.</div></div>
+      <div class="tl-item"><div class="tl-date">Cierre</div><div class="tl-body"><strong>Carta de aceptación firmada ✓.</strong> Proyecto cerrado. El 14/02/2026 Juan Galmés se desplaza a Port Denia para asumir la gestión de AVALON, LAMMOUCHE y THANUJA en sustitución de Cristian Liébana.</div></div>
+    </div>
+  </div>
+
+  <div>
+    <div class="card" style="margin-bottom:14px">
+      <div class="card-title"><div class="dot" style="background:var(--purple)"></div>Datos económicos — Obra 6256 (confirmados)</div>
+      <table class="data-table">
+        <tbody>
+          <tr><td>Ventas facturadas</td><td class="num gold"><strong>157.846,84 €</strong></td></tr>
+          <tr><td>Coste MO (Mano de obra real)</td><td class="num">12.522,00 €</td></tr>
+          <tr><td>Coste Materiales (real)</td><td class="num">26.386,56 €</td></tr>
+          <tr><td>Coste total (MO + Mat.)</td><td class="num">38.908,56 €</td></tr>
+          <tr><td>Beneficio bruto</td><td class="num good"><strong>118.938,28 €</strong></td></tr>
+          <tr><td>Margen sobre ventas</td><td class="num good"><strong>75,4 %</strong></td></tr>
+          <tr><td>Horas MO previstas (plan)</td><td class="num">2.245 h</td></tr>
+          <tr><td>Horas MO reales</td><td class="num good">1.107 h</td></tr>
+          <tr><td>Desviación horas</td><td class="num good">–1.138 h (–50,7 % sobre previsto)</td></tr>
+          <tr><td>MO presupuestada cliente</td><td class="num">161.640,00 €</td></tr>
+          <tr><td>MO real (coste)</td><td class="num">12.522,00 €</td></tr>
+          <tr><td>Mat. presupuestado cliente</td><td class="num">33.776,79 €</td></tr>
+          <tr><td>Mat. real (coste)</td><td class="num">26.386,56 €</td></tr>
+          <tr><td>Subpresupuesto taller (9523/02)</td><td class="num">~2.600 € (T&M)</td></tr>
+          <tr><td>Materiales enviados Sagunto</td><td class="num">35,4 galones Awlgrip</td></tr>
+          <tr><td>Carta de aceptación</td><td class="num good">Firmada ✓</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="dot" style="background:var(--purple)"></div>Rendimiento por empresa</div>
+      <div class="emp-row">
+        <div class="emp-name"><span class="tag tag-orange">993 DOST</span></div>
+        <div class="emp-bar-wrap">
+          <div class="prog-label"><span>Fairing works — rendimiento ajustado</span><span class="warn">60%</span></div>
+          <div class="prog-bar"><div class="prog-fill pf-orange" style="width:60%"></div></div>
+        </div>
+      </div>
+      <div class="emp-row">
+        <div class="emp-name"><span class="tag tag-blue">221 SEMPERE</span></div>
+        <div class="emp-bar-wrap">
+          <div class="prog-label"><span>Nautipaints — rendimiento estándar</span><span class="good">100%</span></div>
+          <div class="prog-bar"><div class="prog-fill pf-blue" style="width:100%"></div></div>
+        </div>
+      </div>
+      <div class="emp-row">
+        <div class="emp-name"><span class="tag tag-blue">375 ROSA MORENO</span></div>
+        <div class="emp-bar-wrap">
+          <div class="prog-label"><span>Nautipaints — rendimiento estándar</span><span class="good">100%</span></div>
+          <div class="prog-bar"><div class="prog-fill pf-blue" style="width:100%"></div></div>
+        </div>
+      </div>
+      <div style="margin-top:10px;padding:10px;background:#f5f0fc;border-radius:8px;font-size:11px;border:1px solid #c8a8e8">
+        <strong>Nota efectividades:</strong> 993 DOST = 60% · Personal Nautipaints (SEMPERE, ROSA MORENO) = 100%. Criterios confirmados por la Dirección y aplicados de forma consistente en toda la temporada 2025-2026.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GRÁFICAS -->
+<div class="section-title">Análisis gráfico</div>
+<div class="grid-2">
+  <div class="card">
+    <div class="card-title">Horas previstas vs reales (Obra 6256)</div>
+    <div class="chart-wrap"><canvas id="chartHoras" height="240"></canvas></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Desglose de costes (Obra 6256)</div>
+    <div class="chart-wrap"><canvas id="chartCostes" height="240"></canvas></div>
+  </div>
+</div>
+
+<!-- SISTEMA PINTURA -->
+<div class="section-title">Sistema de pintura — Awlgrip (Akzo Nobel)</div>
+<div class="notice notice-purple">
+  <span style="font-size:18px">🎨</span>
+  <div><strong>Sistema Awlgrip completo — PSR Seabiscuit.</strong> Sistema de pintura especificado sobre estructura de acero (S/Y vela). Aplicación en Freire Shipyard (Vigo), entorno de taller cubierto. Sin impacto climático significativo. Sistema Prime &amp; Shoot en zonas principales + sistema solid-colour en zonas secundarias.</div>
+</div>
+<div class="grid-2">
+  <div>
+    <div class="paint-system">
+      <div class="paint-system-header ps-awlgrip">🎨 TOPSIDES · Acero · Prime &amp; Shoot (Base Coat / Clear Coat)</div>
+      <div class="paint-zone">
+        <div class="paint-zone-name">Sistema completo Topsides</div>
+        <div class="paint-layer"><div class="layer-num">1</div><div class="layer-product">Hullgard Extra Epoxy Primer <span class="layer-ref">D6120</span></div><div class="layer-color">Anticorrosivo · DFT base</div></div>
+        <div class="paint-layer"><div class="layer-num">2</div><div class="layer-product">Awlfair Fairing Compound <span class="layer-ref">D8200</span></div><div class="layer-color">Masilla gruesa (obra 6307)</div></div>
+        <div class="paint-layer"><div class="layer-num">2b</div><div class="layer-product">Awlfair Fast Catalyst <span class="layer-ref">D7222</span></div><div class="layer-color">Masilla fina (obra 6307)</div></div>
+        <div class="paint-layer"><div class="layer-num">3</div><div class="layer-product">High Build Epoxy Primer <span class="layer-ref">D8002</span></div><div class="layer-color">Highbuild</div></div>
+        <div class="paint-layer"><div class="layer-num">4</div><div class="layer-product">545 Epoxy Primer <span class="layer-ref">D8001 Blue Base</span></div><div class="layer-color">Finish primer</div></div>
+        <div class="paint-layer"><div class="layer-num">5</div><div class="layer-product">Awlcraft 3000 <span class="layer-ref">TF5001</span></div><div class="layer-color" style="background:#1a3a8c;color:#fff">MAJESTIC BLUE</div></div>
+      </div>
+      <div class="paint-zone">
+        <div class="paint-zone-name">Waterline · Acero</div>
+        <div class="paint-layer"><div class="layer-num">1–4</div><div class="layer-product">Igual secuencia que Topsides</div><div class="layer-color">Anticorr → Masilla → HB → 545</div></div>
+        <div class="paint-layer"><div class="layer-num">5</div><div class="layer-product">Awlgrip G-Line <span class="layer-ref">OG8022</span></div><div class="layer-color" style="background:#f0f0e8;color:#333">INSIGNIA WHITE</div></div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="paint-system">
+      <div class="paint-system-header ps-awlgrip">🎨 INNER BULWARKS / COCKPIT / RIG + BAÑERA CENTRAL</div>
+      <div class="paint-zone">
+        <div class="paint-zone-name">Inner Bulwarks, Cockpit y Rig · Solid Color</div>
+        <div class="paint-layer"><div class="layer-num">1</div><div class="layer-product">Hullgard Extra Epoxy Primer <span class="layer-ref">D6120</span></div><div class="layer-color">Anticorrosivo</div></div>
+        <div class="paint-layer"><div class="layer-num">2</div><div class="layer-product">Awlfair D8200 + Surfacing Filler <span class="layer-ref">D6200</span></div><div class="layer-color">Masillas según necesidad</div></div>
+        <div class="paint-layer"><div class="layer-num">3</div><div class="layer-product">High Build Epoxy <span class="layer-ref">D8002</span></div><div class="layer-color">Highbuild</div></div>
+        <div class="paint-layer"><div class="layer-num">4</div><div class="layer-product">545 Epoxy Primer <span class="layer-ref">D1001</span></div><div class="layer-color">Finish primer</div></div>
+        <div class="paint-layer"><div class="layer-num">5</div><div class="layer-product">Awlcraft 3000 <span class="layer-ref">TF8090</span> + Griptex Non-skid 50/50</div><div class="layer-color" style="background:#f5f0e0;color:#555">OYSTER WHITE · Non-skid en zonas tránsito</div></div>
+      </div>
+      <div class="paint-zone">
+        <div class="paint-zone-name">Bañera Central · Obra 6332</div>
+        <div class="paint-layer"><div class="layer-num">1–4</div><div class="layer-product">Misma secuencia base que Inner Bulwarks</div><div class="layer-color">Anticorr → Masilla → HB → 545</div></div>
+        <div class="paint-layer"><div class="layer-num">5</div><div class="layer-product">Awlcraft 3000 TF8090 + Griptex Non-skid</div><div class="layer-color" style="background:#f5f0e0;color:#555">OYSTER WHITE · Non-skid completo</div></div>
+      </div>
+      <div class="paint-zone" style="background:#f8fbfe">
+        <div class="paint-zone-name">Condiciones de aplicación (entorno Freire)</div>
+        <div style="font-size:11px;color:var(--text);line-height:1.7">
+          Aplicación en astillero cubierto — sin impacto climático significativo<br>
+          Temperatura y humedad controladas en entorno taller<br>
+          Materiales Awlgrip: 35,4 galones — envío multireferencia a Sagunto<br>
+          Subpresupuesto piezas taller: 9523/02 ≈ 2.600 € T&amp;M · Tarifa: 72 €/h workshop
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONCLUSIONES -->
+<div class="section-title">Conclusiones</div>
+<div class="notice notice-green">
+  <span style="font-size:22px">✅</span>
+  <div><strong>SEABISCUIT — Resultado excelente.</strong> Primer proyecto de la temporada ejecutado directamente por Juan Galmés en Freire Shipyard (Vigo). Margen bruto del <strong>75,4%</strong> en la obra 6256 (Topsides). Horas reales (1.107 h) por debajo de las previstas (2.245 h) — 49,3% de ejecución sobre presupuesto de MO. Sistema Awlgrip completo implementado correctamente. Cerrado con carta de aceptación. Sentó las bases operativas para el resto de la temporada en Port Denia.</div>
+</div>
+
+</main>
+<footer>NAUTIPAINTS · Informe Proyecto SEABISCUIT 25-26 · S/Y Seabiscuit · Refs. 6256 / 6298 / 6307 / 6332 · Freire Shipyard, Vigo · PM Juan Galmés · Temporada 2025-2026 · Generado 16/06/2026</footer>
+
+<script>
+const ACCENT='#1a9fd4',GOLD='#c99b22',GREEN='#1e9e55',RED='#d43333',ORANGE='#d4721a',PURPLE='#8b3fad';
+const gridOpts={color:'rgba(212,230,240,.6)'};
+const ttpOpts={backgroundColor:'#fff',borderColor:'#d4e6f0',borderWidth:1,titleColor:'#1a2636',bodyColor:'#1a2636',padding:12};
+const bFont={family:"'Helvetica Neue',Arial,sans-serif",size:12};
+
+new Chart(document.getElementById('chartHoras'),{
+  type:'bar',
+  data:{
+    labels:['Horas previstas','Horas reales'],
+    datasets:[{
+      label:'Horas (Obra 6256)',
+      data:[2245,1107],
+      backgroundColor:['rgba(139,63,173,.4)','rgba(30,158,85,.75)'],
+      borderColor:[PURPLE,GREEN],
+      borderWidth:2,borderRadius:8
+    }]
+  },
+  options:{responsive:true,plugins:{legend:{display:false},tooltip:{...ttpOpts,callbacks:{label:c=>` ${c.parsed.y.toLocaleString('es-ES')} h`}}},
+  scales:{x:{ticks:{color:'#5a7a8e',font:bFont},grid:gridOpts},y:{ticks:{color:'#5a7a8e'},grid:gridOpts,title:{display:true,text:'Horas',color:'#5a7a8e'}}}}
+});
+
+new Chart(document.getElementById('chartCostes'),{
+  type:'doughnut',
+  data:{
+    labels:['Mano de Obra (32,2%)','Materiales (67,8%)'],
+    datasets:[{
+      data:[12522,26387],
+      backgroundColor:['rgba(139,63,173,.75)','rgba(26,159,212,.75)'],
+      borderColor:[PURPLE,ACCENT],
+      borderWidth:2
+    }]
+  },
+  options:{responsive:true,plugins:{
+    legend:{labels:{color:'#1a2636',font:bFont}},
+    tooltip:{...ttpOpts,callbacks:{label:c=>` ${c.label}: ${c.parsed.toLocaleString('es-ES',{minimumFractionDigits:2})} €`}}
+  }}
+});
+</script>
+</body>
+</html>

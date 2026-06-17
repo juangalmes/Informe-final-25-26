@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INFORME LAMMOUCHE · NAUTIPAINTS</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --navy:#0b1e2d;--gold:#c99b22;--gold2:#e8b930;--blue:#1e7fb5;--accent:#1a9fd4;
+  --green:#1e9e55;--red:#d43333;--orange:#d4721a;--purple:#8b3fad;
+  --card:#ffffff;--border:#d4e6f0;--text:#1a2636;--muted:#5a7a8e;--bg:#f0f6fa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Source Sans 3','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+header{background:linear-gradient(135deg,#2d0a0a 0%,#4a1010 60%,#7a1a1a 100%);color:#fff;padding:32px 40px 28px;border-bottom:4px solid var(--gold);position:relative;overflow:hidden}
+header::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
+.header-inner{display:flex;align-items:flex-start;gap:28px;position:relative;z-index:1}
+.anchor-icon{font-size:52px;line-height:1}
+.header-text{flex:1}
+.header-season{font-size:11px;letter-spacing:3px;color:var(--gold2);text-transform:uppercase;margin-bottom:6px;font-weight:700}
+.header-title{font-size:30px;font-weight:800;letter-spacing:1px;line-height:1.15}
+.header-title span{color:var(--gold2)}
+.header-sub{font-size:13px;color:rgba(255,255,255,.6);margin-top:5px}
+.header-badges{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.badge{padding:5px 14px;border-radius:20px;font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase}
+.badge-blue{background:rgba(26,159,212,.25);border:1px solid var(--accent);color:#9dd8f5}
+.badge-gold{background:rgba(201,155,34,.25);border:1px solid var(--gold);color:var(--gold2)}
+.badge-green{background:rgba(30,158,85,.25);border:1px solid var(--green);color:#7de4a3}
+.badge-orange{background:rgba(212,114,26,.25);border:1px solid var(--orange);color:#f5b066}
+main{padding:28px 36px 56px;max-width:1480px;margin:0 auto}
+.section-title{font-size:13px;font-weight:800;letter-spacing:2.5px;color:var(--accent);text-transform:uppercase;margin:36px 0 16px;display:flex;align-items:center;gap:10px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+.section-title::before{content:'';display:inline-block;width:4px;height:18px;background:var(--gold);border-radius:2px;flex-shrink:0}
+.notice{border-radius:10px;padding:14px 18px;margin-bottom:20px;display:flex;gap:14px;align-items:flex-start;font-size:13px}
+.notice-blue{background:#e8f5fb;border:1px solid #a8d8ee}
+.notice-orange{background:#fff5ea;border:1px solid #f0c890}
+.notice-red{background:#fff0ee;border:1px solid #f0b8b0}
+.notice-green{background:#edfaf2;border:1px solid #90dbb0}
+.notice-purple{background:#f5f0fc;border:1px solid #c8a8e8}
+.notice strong{color:var(--text)}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:6px}
+.kpi-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;position:relative;overflow:hidden}
+.kpi-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.kpi-card.c-blue::after{background:var(--accent)}.kpi-card.c-gold::after{background:var(--gold)}
+.kpi-card.c-green::after{background:var(--green)}.kpi-card.c-red::after{background:var(--red)}
+.kpi-card.c-orange::after{background:var(--orange)}.kpi-card.c-purple::after{background:var(--purple)}
+.kpi-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:7px;font-weight:700}
+.kpi-value{font-size:24px;font-weight:900;color:var(--text);line-height:1}
+.kpi-value.sm{font-size:19px}
+.kpi-sub{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:18px}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 22px;overflow:hidden}
+.card-title{font-size:12px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.card-title .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.data-table{width:100%;border-collapse:collapse;font-size:12px}
+.data-table th{background:#eaf5fa;color:var(--accent);font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:9px 12px;text-align:left;border-bottom:2px solid var(--border)}
+.data-table td{padding:8px 12px;border-bottom:1px solid #e8eff5;vertical-align:top}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:#f5fbfe}
+.data-table tfoot td{font-weight:800;background:#f0f8fc;border-top:2px solid var(--border)}
+.num{text-align:right;font-weight:700}
+.tag{display:inline-block;padding:2px 8px;border-radius:8px;font-size:10px;font-weight:800}
+.tag-blue{background:#daeef8;color:#1463a0}.tag-green{background:#daf4e7;color:#145c30}
+.tag-orange{background:#fef0de;color:#8c4a10}.tag-red{background:#fee8e6;color:#8c1a1a}
+.tag-purple{background:#f0e8f8;color:#5a1a8c}.tag-gold{background:#fef7e0;color:#7a5c00}
+.good{color:var(--green)!important;font-weight:700}.bad{color:var(--red)!important;font-weight:700}
+.warn{color:var(--orange)!important;font-weight:700}.gold{color:var(--gold)!important}
+.acc{color:var(--accent)!important}.muted{color:var(--muted)}
+.prog-label{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:5px;margin-top:10px;font-weight:600}
+.prog-bar{height:8px;background:#e4eff5;border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;border-radius:4px}
+.pf-green{background:linear-gradient(90deg,#14753e,var(--green))}.pf-orange{background:linear-gradient(90deg,#a04010,var(--orange))}
+.pf-red{background:linear-gradient(90deg,#8c1a1a,var(--red))}.pf-blue{background:linear-gradient(90deg,#0e4a7a,var(--accent))}
+.timeline{display:grid;gap:10px}
+.tl-item{display:grid;grid-template-columns:120px 1fr;gap:12px;align-items:start;font-size:12px}
+.tl-date{color:var(--gold);font-weight:800;font-size:12px}
+.tl-body{border-left:2px solid var(--border);padding-left:12px;color:var(--text);line-height:1.5}
+.tl-body strong{color:var(--accent)}
+.emp-row{display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid var(--border);font-size:12px}
+.emp-row:last-child{border-bottom:none}
+.emp-name{width:170px;font-weight:700}
+.emp-bar-wrap{flex:1}
+.paint-system{border-radius:10px;overflow:hidden;border:1px solid var(--border);margin-bottom:14px}
+.paint-system-header{padding:10px 16px;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#fff}
+.ps-boero{background:linear-gradient(90deg,#1a3d20,#2a7a40)}
+.paint-zone{padding:12px 16px;border-bottom:1px solid #e8f2f8;font-size:12px}
+.paint-zone:last-child{border-bottom:none}
+.paint-zone-name{font-weight:800;color:var(--accent);margin-bottom:6px;font-size:11px;text-transform:uppercase;letter-spacing:.8px}
+.paint-layer{display:flex;align-items:flex-start;gap:10px;padding:3px 0;font-size:11px;border-bottom:1px solid #f0f8fc}
+.paint-layer:last-child{border-bottom:none}
+.layer-num{background:var(--accent);color:#fff;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;flex-shrink:0;margin-top:1px}
+.layer-product{flex:1;font-weight:700;color:var(--text)}
+.layer-ref{color:var(--muted);font-size:10px}
+.layer-color{padding:1px 6px;border-radius:4px;font-size:9px;font-weight:800;background:#f0f8fc;color:var(--accent)}
+.chart-wrap{position:relative;min-height:200px}
+footer{text-align:center;padding:20px;color:var(--muted);font-size:11px;border-top:2px solid var(--border);background:var(--card);margin-top:8px;letter-spacing:.5px}
+@media print{body{background:#fff}.card,.kpi-card{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <div class="anchor-icon">⚓</div>
+    <div class="header-text">
+      <div class="header-season">Nautipaints · Port Denia · Temporada 2025-2026</div>
+      <div class="header-title">INFORME DE PROYECTO — <span>LAMMOUCHE</span></div>
+      <div class="header-sub">M/Y Lammouche · Boero YachtCoatings · Refs. P-6339 / 6351 / 6359 / 6390 / 6398 (Admin) · PM: Juan Galmés · 1000152</div>
+      <div class="header-badges">
+        <span class="badge badge-green">✓ CERRADO · 20/04/2026</span>
+        <span class="badge badge-blue">Boero YachtCoatings</span>
+        <span class="badge badge-gold">Port Denia</span>
+        <span class="badge badge-orange">Ene 2026 → 20 Abr 2026</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<div class="notice notice-green" style="margin-top:24px">
+  <span style="font-size:22px">✅</span>
+  <div><strong>Proyecto cerrado — Carta de aceptación firmada el 20/04/2026.</strong> Botadura el 10/04/2026. Descuento negociado en tracks a cambio de excluir zona maquinazos sol deck babor de garantía. Sika ventanas grandes diferido a fin de temporada (acordado con Capitán Max). Pintura de zonas con cortes según especificación CCS — no superestructura completa.</div>
+</div>
+
+<div class="notice notice-purple">
+  <span style="font-size:18px">🔧</span>
+  <div><strong>Obra administrativa 6398 — "Retapado x lluvia + trabajos extras para recuperar tiempo".</strong> Abierta por decisión de la Dirección (CEO) para absorber las horas de refuerzo extraordinario necesarias para cumplir la fecha de botadura. El barco no podía alargar su estancia fuera del agua. Las horas fueron retiradas de la obra general 6339 y controladas en paralelo. Coste 12.860,78 € absorbido por la empresa.</div>
+</div>
+
+<!-- KPIs -->
+<div class="section-title">Resumen ejecutivo — KPIs del proyecto</div>
+<div class="kpi-grid">
+  <div class="kpi-card c-gold"><div class="kpi-label">Precio de venta global</div><div class="kpi-value sm">155.330 €</div><div class="kpi-sub">P-6339 · Full paint zonas con cortes CCS</div></div>
+  <div class="kpi-card c-blue"><div class="kpi-label">Coste obras confirmadas</div><div class="kpi-value sm">21.773 €</div><div class="kpi-sub">6359: 262 € · 6390: 8.652 € · 6398: 12.861 €</div></div>
+  <div class="kpi-card c-red"><div class="kpi-label">Coste obra admin 6398</div><div class="kpi-value sm">12.861 €</div><div class="kpi-sub">Facturado 0 € — absorbido por empresa</div></div>
+  <div class="kpi-card c-green"><div class="kpi-label">Ventas obras admin</div><div class="kpi-value sm">12.236 €</div><div class="kpi-sub">6359: 3.235 € · 6390: 9.001 €</div></div>
+  <div class="kpi-card c-orange"><div class="kpi-label">Días de proyecto</div><div class="kpi-value sm">85+ d</div><div class="kpi-sub">16/01 → 20/04/2026 · +refuerzo final</div></div>
+  <div class="kpi-card c-orange"><div class="kpi-label">Área pintada</div><div class="kpi-value sm">287 m²</div><div class="kpi-sub">Topsides hull · 6,91 h/m² (obra base)</div></div>
+  <div class="kpi-card c-purple"><div class="kpi-label">Rend. Construction Line</div><div class="kpi-value sm">20–50%</div><div class="kpi-sub">20% últimos 3 días (fase remates)</div></div>
+  <div class="kpi-card c-green"><div class="kpi-label">Estado</div><div class="kpi-value sm" style="font-size:14px">CERRADO ✓</div><div class="kpi-sub">Carta firmada 20/04/2026 · Botadura 10/04</div></div>
+</div>
+
+<!-- OBRAS -->
+<div class="section-title">Desglose por obras</div>
+<div class="card" style="overflow-x:auto;margin-bottom:16px">
+  <div class="card-title"><div class="dot" style="background:#c05010"></div>Tabla de obras del proyecto</div>
+  <table class="data-table">
+    <thead>
+      <tr><th>Obra</th><th>Descripción</th><th>Estado</th><th>Coste Total</th><th>Facturado</th><th>Margen</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>6339</strong></td>
+        <td>LAMMOUCHE.FULL PAINT — Hull + superestructura zonas con cortes CCS · Obra principal · 287 m²</td>
+        <td><span class="tag tag-green">Cerrada ✓</span></td>
+        <td class="num warn">Pendiente desglose</td>
+        <td class="num gold"><strong>155.330 €</strong></td>
+        <td class="num muted">Pendiente</td>
+      </tr>
+      <tr>
+        <td><strong>6351</strong></td>
+        <td>LAMMOUCHE.TAPADO Y PROTECCIONES — Protecciones y tapado general</td>
+        <td><span class="tag tag-green">Cerrada ✓</span></td>
+        <td class="num muted">Pendiente</td>
+        <td class="num muted">Pendiente</td>
+        <td class="num muted">Pendiente</td>
+      </tr>
+      <tr>
+        <td><strong>6359</strong></td>
+        <td>LAMMOUCHE.REPAIR — Trabajos de reparación</td>
+        <td><span class="tag tag-green">Cerrada ✓</span></td>
+        <td class="num">261,59 €</td>
+        <td class="num good">3.234,75 €</td>
+        <td class="num good">2.973,16 €</td>
+      </tr>
+      <tr>
+        <td><strong>6390</strong></td>
+        <td>LAMMOUCHE.TRACKS — Trabajos en tracks · Workers: 310 CASELLAS, 317 BELMONTE, 375 ROSA MORENO, 469 ROSELLÓ, 587 LÓPEZ, 992 CONSTRUCTION LINE, 396 ROS BUGEJA, 991 OLIMPOS</td>
+        <td><span class="tag tag-green">Cerrada ✓</span></td>
+        <td class="num">8.651,66 €</td>
+        <td class="num good">9.000,99 €</td>
+        <td class="num good">349,33 €</td>
+      </tr>
+      <tr>
+        <td><strong>6398</strong> <span class="tag tag-red" style="font-size:9px">ADMIN</span></td>
+        <td>LAMMOUCHE.RETAPADO POR LLUVIA — Obra administrativa. Refuerzo extraordinario para cumplir botadura. Workers: 469 ROSELLÓ, 993 DOST, 317 BELMONTE, 375 ROSA MORENO, 310 CASELLAS, 991 OLIMPOS, 992 CONSTRUCTION LINE, 587 LÓPEZ</td>
+        <td><span class="tag tag-red">Admin — no facturada</span></td>
+        <td class="num bad">12.860,78 €</td>
+        <td class="num bad">0 €</td>
+        <td class="num bad">–12.860,78 €</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr><td><strong>TOTAL OBRAS ADMIN</strong></td><td colspan="2"></td><td class="num bad"><strong>21.773 €</strong></td><td class="num good"><strong>12.236 €</strong></td><td class="num bad"><strong>–9.537 €</strong></td></tr>
+    </tfoot>
+  </table>
+  <p class="muted" style="margin-top:8px;font-size:11px">Nota: Los totales de obra 6339 (principal) y 6351 están pendientes de extracción detallada. El precio de venta global confirmado es 155.329,75 € (P-6339). La obra 6398 fue una decisión del CEO para garantizar la botadura — el coste fue asumido por la empresa.</p>
+</div>
+
+<!-- TIMELINE + RENDIMIENTO -->
+<div class="grid-2">
+  <div class="card">
+    <div class="card-title"><div class="dot" style="background:#c05010"></div>Timeline operativo</div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-date">16–19/01/2026</div><div class="tl-body">BALEOS retira Sika (fines de semana incluidos). Finaliza 19/01 al mediodía. Inicio de operaciones.</div></div>
+      <div class="tl-item"><div class="tl-date">21/01 → 19/02</div><div class="tl-body">Lavado, tapado y protección por zonas. Múltiples paradas por viento (28/01, 31/01, 12–14/02). Cierre tapado completo 19/02. Inicio detección grietas y lijado rincones.</div></div>
+      <div class="tl-item"><div class="tl-date">24/02/2026</div><div class="tl-body">Reunión Capitán + Port Denia + CCS (Toni Caballer). Retraso comunicado: 3–4 días. Acuerdo beach area. MOM redactado.</div></div>
+      <div class="tl-item"><div class="tl-date">05–09/03</div><div class="tl-body"><strong class="bad">Entradas masivas de agua.</strong> Full primer aplazado. Monkey deck (07/03) y bridge deck forward (09/03) como únicos avances. Retraso adicional: 1–1,5 semanas.</div></div>
+      <div class="tl-item"><div class="tl-date">13/03/2026</div><div class="tl-body">Reunión Port Dénia. Capitán: fecha tope botadura <strong>lunes 6 de abril.</strong> Nautipaints: imposible en condiciones normales → <strong class="acc">apertura obra admin 6398 por CEO + refuerzo personal</strong>.</div></div>
+      <div class="tl-item"><div class="tl-date">17–20/03</div><div class="tl-body">Tracks autorizados con 11 días de demora. Surveyor CCS visita 19/03. Fallo de previsión en limpieza superficies admitido (JG).</div></div>
+      <div class="tl-item"><div class="tl-date">23/03/2026</div><div class="tl-body"><strong class="acc">Topcoat blanco aplicado.</strong> Resultado muy bueno. Capitán Max: muy satisfecho — especialmente zona popa (armador presente).</div></div>
+      <div class="tl-item"><div class="tl-date">28/03 → 06/04</div><div class="tl-body">Gris monkey deck (28/03) · Gris main deck (30/03) · Gris beach area (01/04) · Tracks grises (02/04) · Non-skid (03/04) · Línea negra + retoques (06/04).</div></div>
+      <div class="tl-item"><div class="tl-date">10/04/2026</div><div class="tl-body"><strong class="acc">Botadura.</strong> Revisión CCS (Toni Caballer) + Xisco Renovell (QC NP). 2 rejillas olvidadas por Port Denia → pintadas en Denia.</div></div>
+      <div class="tl-item"><div class="tl-date">20/04/2026</div><div class="tl-body"><strong class="good">Carta de aceptación firmada ✓</strong> Descuento tracks a cambio de excluir zona maquinazos sol deck babor de garantía. Sika ventanas grandes diferido a fin de temporada (acordado con Max).</div></div>
+    </div>
+  </div>
+
+  <div>
+    <div class="card" style="margin-bottom:14px">
+      <div class="card-title"><div class="dot" style="background:#c05010"></div>Datos económicos</div>
+      <table class="data-table">
+        <tbody>
+          <tr><td>Precio de venta (P-6339)</td><td class="num gold"><strong>155.329,75 €</strong></td></tr>
+          <tr><td>Horas previstas (plan base 6339)</td><td class="num">2.203 h</td></tr>
+          <tr><td>Coste obra 6359 (Repair)</td><td class="num">261,59 €</td></tr>
+          <tr><td>Venta obra 6359</td><td class="num good">3.234,75 €</td></tr>
+          <tr><td>Coste obra 6390 (Tracks)</td><td class="num">8.651,66 €</td></tr>
+          <tr><td>Venta obra 6390</td><td class="num good">9.000,99 €</td></tr>
+          <tr><td>Coste obra 6398 (Admin/Refuerzo)</td><td class="num bad">12.860,78 €</td></tr>
+          <tr><td>Venta obra 6398</td><td class="num bad">0 € — absorbido empresa</td></tr>
+          <tr><td>Área topsides</td><td class="num">287 m² · 6,91 h/m²</td></tr>
+          <tr><td>Botadura</td><td class="num good">10/04/2026 ✓</td></tr>
+          <tr><td>Carta de aceptación</td><td class="num good">Firmada 20/04/2026 ✓</td></tr>
+          <tr><td>Sika ventanas grandes</td><td class="num warn">Diferido fin temporada (acordado)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="dot" style="background:#c05010"></div>Rendimiento por empresa</div>
+      <div class="emp-row">
+        <div class="emp-name"><span class="tag tag-blue">Nautipaints</span></div>
+        <div class="emp-bar-wrap">
+          <div class="prog-label"><span>Equipo propio (Casellas, Belmonte, Rosa M., Roselló, López) → 100%</span><span class="good">100%</span></div>
+          <div class="prog-bar"><div class="prog-fill pf-blue" style="width:100%"></div></div>
+        </div>
+      </div>
+      <div class="emp-row">
+        <div class="emp-name"><span class="tag tag-green">991 OLIMPOS</span></div>
+        <div class="emp-bar-wrap">
+          <div class="prog-label"><span>Presente en obras 6390 y 6398 → 100%</span><span class="good">100%</span></div>
+          <div class="prog-bar"><div class="prog-fill pf-green" style="width:100%"></div></div>
+        </div>
+      </div>
+      <div class="emp-row">
+        <div class="emp-name"><span class="tag tag-orange">993 DOST</span></div>
+        <div class="emp-bar-wrap">
+          <div class="prog-label"><span>Presente en obra 6398 (refuerzo) → 60%</span><span class="warn">60%</span></div>
+          <div class="prog-bar"><div class="prog-fill pf-orange" style="width:60%"></div></div>
+        </div>
+      </div>
+      <div class="emp-row">
+        <div class="emp-name"><span class="tag tag-red">992 CONSTR. LINE</span></div>
+        <div class="emp-bar-wrap">
+          <div class="prog-label"><span>50–40% general · <strong>20% últimos 3 días</strong> (fase remates)</span><span class="bad">20–50%</span></div>
+          <div class="prog-bar"><div class="prog-fill pf-red" style="width:35%"></div></div>
+        </div>
+      </div>
+      <div style="margin-top:10px;padding:10px;background:#fff5ea;border-radius:8px;font-size:11px;border:1px solid #f0c890">
+        ⚠️ Los últimos 3 días de Construction Line al <strong class="bad">20%</strong> coinciden con la fase de remates — la más crítica para la calidad de entrega. Patrón documentado: rendimiento decreciente conforme avanza el proyecto.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INCIDENCIAS -->
+<div class="section-title">Incidencias y contexto operativo</div>
+<div class="notice notice-orange">
+  <span style="font-size:18px">🌬️</span>
+  <div><strong>Impacto climático severo — invierno Port Denia.</strong> Múltiples paradas por viento (28/01, 31/01, 12–14/02). Entradas masivas de agua 05–09/03 → masillas mojadas que hubo que rehacer → retraso adicional 1–1,5 semanas. Estimación total: <strong class="bad">8+ días perdidos</strong>. La botadura estuvo en riesgo real sin la apertura de la obra admin 6398.</div>
+</div>
+<div class="notice notice-blue">
+  <span style="font-size:18px">ℹ️</span>
+  <div><strong>Coordinación con CCS (Toni Caballer).</strong> Las zonas pintadas siguen el informe de CCS — cortes específicos, no superestructura completa. El surveyor verificó los trabajos el 19/03/2026. Aprobación QC Nautipaints (Xisco Renovell) en botadura 10/04. La especificación técnica de pintura está contenida en el informe CCS.</div>
+</div>
+
+<!-- GRÁFICA -->
+<div class="section-title">Análisis gráfico</div>
+<div class="grid-2">
+  <div class="card">
+    <div class="card-title">Coste vs Facturación — obras administrativas</div>
+    <div class="chart-wrap"><canvas id="chartObras" height="240"></canvas></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Timeline de hitos clave</div>
+    <div class="chart-wrap"><canvas id="chartTimeline" height="240"></canvas></div>
+  </div>
+</div>
+
+<!-- SISTEMA PINTURA -->
+<div class="section-title">Sistema de pintura — Boero YachtCoatings · Especificación CCS</div>
+<div class="notice notice-blue">
+  <span style="font-size:18px">ℹ️</span>
+  <div><strong>Nota sobre sistema de pintura.</strong> La especificación técnica completa está contenida en el informe CCS junto con los cortes y zonas detalladas. Los trabajos siguieron el plan acordado con CCS y la dirección del astillero. El topcoat blanco fue aprobado por Nautipaints QC antes de la aplicación.</div>
+</div>
+<div class="grid-2">
+  <div>
+    <div class="paint-system">
+      <div class="paint-system-header ps-boero">🎨 HULL + SUPERESTRUCTURA (zonas con cortes CCS)</div>
+      <div class="paint-zone">
+        <div class="paint-zone-name">Sistema de capas — substrato base</div>
+        <div class="paint-layer"><div class="layer-num">1</div><div class="layer-product">Epoyacht Fast 603 <span class="layer-ref">— Masilla epoxi base</span></div><div class="layer-color">Reparación zonas dañadas</div></div>
+        <div class="paint-layer"><div class="layer-num">2</div><div class="layer-product">Delta UC HB 636 — Primer epoxi alta resistencia</div><div class="layer-color">DFT 150µm · P180→P240</div></div>
+        <div class="paint-layer"><div class="layer-num">3</div><div class="layer-product">Delta 3000 White — Topcoat poliuretano blanco</div><div class="layer-color" style="background:#f5f5f5;color:#333">BLANCO — Aplicado 23/03/2026</div></div>
+      </div>
+      <div class="paint-zone">
+        <div class="paint-zone-name">Zonas de cubierta y superestructura</div>
+        <div class="paint-layer"><div class="layer-num">1</div><div class="layer-product">Delta UC HB 636 — Primer base</div><div class="layer-color">DFT mínimo estándar Boero</div></div>
+        <div class="paint-layer"><div class="layer-num">2</div><div class="layer-product">Topcoat gris (monkey deck, main deck, beach area)</div><div class="layer-color" style="background:#888;color:#fff">GRIS · Aplicado 28/03–01/04</div></div>
+        <div class="paint-layer"><div class="layer-num">3</div><div class="layer-product">Non-skid — zonas de tránsito</div><div class="layer-color">Aplicado 03/04/2026</div></div>
+        <div class="paint-layer"><div class="layer-num">4</div><div class="layer-product">Línea de flotación negra + retoques finales</div><div class="layer-color" style="background:#111;color:#fff">NEGRO · Aplicado 06/04/2026</div></div>
+      </div>
+      <div class="paint-zone">
+        <div class="paint-zone-name">Tracks (obra 6390 — autorización tardía)</div>
+        <div class="paint-layer"><div class="layer-num">1–2</div><div class="layer-product">Preparación + Topcoat gris tracks</div><div class="layer-color">Autorizado con 11 días demora · Aplicado 02/04</div></div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="paint-system">
+      <div class="paint-system-header ps-boero">🎨 Condiciones y preparación de superficie</div>
+      <div class="paint-zone">
+        <div class="paint-zone-name">Condiciones de aplicación (Port Denia — invierno)</div>
+        <div style="font-size:11px;color:var(--text);line-height:1.8">
+          Temperatura aplicación: <strong>15–30°C</strong> · HR: <strong>35–75%</strong><br>
+          Superficie mín. 15°C y 3°C sobre punto de rocío<br>
+          <strong>Paradas por viento:</strong> 28/01, 31/01, 12–14/02, 05–09/03<br>
+          Buffer climático insuficiente en planificación inicial — recomendado 5–8 días extra en proyectos invernales Port Denia<br>
+          <strong>Limpieza previa:</strong> agua a presión 200–300 bar + desengrase (SSPC-SP1)<br>
+          Zonas corrosión: sandblasting Sa 2½ (ISO 8501-1)
+        </div>
+      </div>
+      <div class="paint-zone" style="background:#edfaf2">
+        <div class="paint-zone-name">✅ Resultado final</div>
+        <div style="font-size:11px;color:var(--text);line-height:1.8">
+          Topcoat blanco: <strong class="good">muy bueno</strong> — Capitán Max satisfecho (especialmente zona popa)<br>
+          QC Nautipaints (Xisco Renovell): <strong class="good">aprobado en botadura</strong><br>
+          Surveyor CCS (Toni Caballer): <strong class="good">OK</strong><br>
+          Carta de aceptación: <strong class="good">firmada 20/04/2026</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONCLUSIONES -->
+<div class="section-title">Conclusiones</div>
+<div class="notice notice-orange">
+  <span style="font-size:22px">⚠️</span>
+  <div><strong>LAMMOUCHE — Proyecto condicionado por el invierno de Port Denia.</strong> La obra admin 6398 (apertura por CEO) fue una respuesta operativa correcta para cumplir el compromiso de botadura, aunque generó un coste de 12.860,78 € no facturado. Construction Line al 20% en los últimos 3 días coincidiendo con los remates fue especialmente problemático. No usar Construction Line en fases de remates o aplicaciones finales en futuras obras. La botadura se cumplió en fecha y el resultado fue muy bien valorado por el cliente.</div>
+</div>
+
+</main>
+<footer>NAUTIPAINTS · Informe Proyecto LAMMOUCHE · M/Y Lammouche · Refs. P-6339 / 6351 / 6359 / 6390 / 6398 · Port Denia · PM Juan Galmés · Temporada 2025-2026 · Generado 16/06/2026</footer>
+
+<script>
+const ACCENT='#1a9fd4',GOLD='#c99b22',GREEN='#1e9e55',RED='#d43333',ORANGE='#d4721a';
+const gridOpts={color:'rgba(212,230,240,.6)'};
+const ttpOpts={backgroundColor:'#fff',borderColor:'#d4e6f0',borderWidth:1,titleColor:'#1a2636',bodyColor:'#1a2636',padding:12};
+const bFont={family:"'Helvetica Neue',Arial,sans-serif",size:12};
+
+new Chart(document.getElementById('chartObras'),{
+  type:'bar',
+  data:{
+    labels:['6359 Repair','6390 Tracks','6398 Admin\n(no facturada)'],
+    datasets:[
+      {label:'Coste',data:[261.59,8651.66,12860.78],backgroundColor:['rgba(26,159,212,.5)','rgba(26,159,212,.5)','rgba(212,51,51,.5)'],borderColor:[ACCENT,ACCENT,RED],borderWidth:2,borderRadius:5},
+      {label:'Facturado',data:[3234.75,9000.99,0],backgroundColor:['rgba(30,158,85,.6)','rgba(30,158,85,.6)','rgba(212,51,51,.3)'],borderColor:[GREEN,GREEN,RED],borderWidth:2,borderRadius:5}
+    ]
+  },
+  options:{responsive:true,plugins:{legend:{labels:{color:'#1a2636',font:bFont}},tooltip:{...ttpOpts,callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.y.toLocaleString('es-ES',{minimumFractionDigits:2})} €`}}},
+  scales:{x:{ticks:{color:'#5a7a8e',font:{...bFont,size:10}},grid:gridOpts},y:{ticks:{color:'#5a7a8e'},grid:gridOpts,title:{display:true,text:'Euros',color:'#5a7a8e'}}}}
+});
+
+new Chart(document.getElementById('chartTimeline'),{
+  type:'bar',
+  data:{
+    labels:['Inicio','Tapado completo','Reunión CEO+Capt.','Topcoat blanco','Botadura','Aceptación'],
+    datasets:[{
+      label:'Días desde inicio (16/01)',
+      data:[0,34,57,67,85,95],
+      backgroundColor:['rgba(26,159,212,.6)','rgba(201,155,34,.6)','rgba(212,114,26,.7)','rgba(30,158,85,.7)','rgba(30,158,85,.85)','rgba(30,158,85,.95)'],
+      borderColor:[ACCENT,GOLD,ORANGE,GREEN,GREEN,GREEN],
+      borderWidth:2,borderRadius:6
+    }]
+  },
+  options:{responsive:true,plugins:{legend:{display:false},tooltip:{...ttpOpts,callbacks:{label:c=>`Día ${c.parsed.y} del proyecto`}}},
+  scales:{x:{ticks:{color:'#5a7a8e',font:{...bFont,size:9}},grid:gridOpts},y:{ticks:{color:'#5a7a8e'},grid:gridOpts,title:{display:true,text:'Días desde inicio',color:'#5a7a8e'}}}}
+});
+</script>
+</body>
+</html>

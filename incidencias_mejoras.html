@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INFORME DE INCIDENCIAS Y MEJORAS — PROYECTOS EXTERNOS · NAUTIPAINTS 2025-2026</title>
+<style>
+:root{
+  --navy:#0b1e2d;--gold:#c99b22;--gold2:#e8b930;--blue:#1e7fb5;--accent:#1a9fd4;
+  --green:#1e9e55;--red:#d43333;--orange:#d4721a;--purple:#8b3fad;
+  --card:#ffffff;--border:#d4e6f0;--text:#1a2636;--muted:#5a7a8e;--bg:#f0f6fa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Source Sans 3','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+header{background:linear-gradient(135deg,#2d0a0a 0%,#4a1010 60%,#7a1a1a 100%);color:#fff;padding:32px 40px 28px;border-bottom:4px solid var(--gold);position:relative;overflow:hidden}
+header::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
+.header-inner{display:flex;align-items:flex-start;gap:28px;position:relative;z-index:1}
+.header-text{flex:1}
+.header-season{font-size:11px;letter-spacing:3px;color:var(--gold2);text-transform:uppercase;margin-bottom:6px;font-weight:700}
+.header-title{font-size:28px;font-weight:800;letter-spacing:1px;line-height:1.15}
+.header-title span{color:var(--gold2)}
+.header-sub{font-size:13px;color:rgba(255,255,255,.6);margin-top:5px}
+.header-badges{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.badge{padding:5px 14px;border-radius:20px;font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase}
+.badge-blue{background:rgba(26,159,212,.25);border:1px solid var(--accent);color:#9dd8f5}
+.badge-gold{background:rgba(201,155,34,.25);border:1px solid var(--gold);color:var(--gold2)}
+.badge-green{background:rgba(30,158,85,.25);border:1px solid var(--green);color:#7de4a3}
+.badge-orange{background:rgba(212,114,26,.25);border:1px solid var(--orange);color:#f5b066}
+.badge-red{background:rgba(212,51,51,.25);border:1px solid var(--red);color:#f5a0a0}
+main{padding:28px 36px 56px;max-width:1280px;margin:0 auto}
+.section-title{font-size:13px;font-weight:800;letter-spacing:2.5px;color:var(--accent);text-transform:uppercase;margin:36px 0 16px;display:flex;align-items:center;gap:10px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+.section-title::before{content:'';display:inline-block;width:4px;height:18px;background:var(--gold);border-radius:2px;flex-shrink:0}
+.subsection{font-size:12px;font-weight:800;letter-spacing:1.5px;color:var(--navy);text-transform:uppercase;margin:24px 0 12px;padding:8px 14px;background:#eaf5fa;border-left:4px solid var(--accent);border-radius:0 6px 6px 0}
+.notice{border-radius:10px;padding:14px 18px;margin-bottom:16px;display:flex;gap:14px;align-items:flex-start;font-size:13px}
+.notice-blue{background:#e8f5fb;border:1px solid #a8d8ee}
+.notice-orange{background:#fff5ea;border:1px solid #f0c890}
+.notice-red{background:#fff0ee;border:1px solid #f0b8b0}
+.notice-green{background:#edfaf2;border:1px solid #90dbb0}
+.notice-purple{background:#f5f0fc;border:1px solid #c8a8e8}
+.notice-gold{background:#fef9ea;border:1px solid #e8d080}
+.notice strong{color:var(--text)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px 26px;margin-bottom:16px}
+.card-title{font-size:12px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.card-title .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:18px;margin-bottom:16px}
+.data-table{width:100%;border-collapse:collapse;font-size:12px}
+.data-table th{background:#eaf5fa;color:var(--accent);font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:9px 12px;text-align:left;border-bottom:2px solid var(--border)}
+.data-table td{padding:8px 12px;border-bottom:1px solid #e8eff5;vertical-align:top;line-height:1.5}
+.data-table tr:last-child td{border-bottom:none}
+.tag{display:inline-block;padding:2px 8px;border-radius:8px;font-size:10px;font-weight:800}
+.tag-blue{background:#daeef8;color:#1463a0}.tag-green{background:#daf4e7;color:#145c30}
+.tag-orange{background:#fef0de;color:#8c4a10}.tag-red{background:#fee8e6;color:#8c1a1a}
+.tag-purple{background:#f0e8f8;color:#5a1a8c}.tag-gold{background:#fef7e0;color:#7a5c00}
+.good{color:var(--green)!important;font-weight:700}.bad{color:var(--red)!important;font-weight:700}.warn{color:var(--orange)!important;font-weight:700}
+.accion-box{background:#f5f9fc;border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;margin-top:12px;font-size:12px}
+.accion-box strong{color:var(--accent);display:block;margin-bottom:6px;font-size:11px;text-transform:uppercase;letter-spacing:.8px}
+.risk-box{background:#fff5ea;border:1px solid #f0c890;border-left:4px solid var(--orange);border-radius:0 8px 8px 0;padding:12px 16px;margin-top:8px;font-size:12px}
+.risk-box strong{color:var(--orange);display:block;margin-bottom:6px;font-size:11px;text-transform:uppercase;letter-spacing:.8px}
+.prop-box{background:#f5f0fc;border:1px solid #c8a8e8;border-left:4px solid var(--purple);border-radius:0 8px 8px 0;padding:12px 16px;margin-top:12px;font-size:12px}
+.prop-box strong{color:var(--purple);display:block;margin-bottom:6px;font-size:11px;text-transform:uppercase;letter-spacing:.8px}
+.kit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-top:10px}
+.kit-item{background:#f0f6fa;border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-size:11px;display:flex;align-items:center;gap:6px}
+.kit-item::before{content:'·';color:var(--accent);font-weight:900}
+.priority-table td:first-child{font-weight:700;white-space:nowrap}
+.num-circle{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:800;flex-shrink:0}
+footer{text-align:center;padding:20px;color:var(--muted);font-size:11px;border-top:2px solid var(--border);background:var(--card);margin-top:8px;letter-spacing:.5px}
+@media print{body{background:#fff}.card,.notice{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <div class="header-text">
+      <div class="header-season">Nautipaints · Freire Vigo + Port Denia · Temporada 2025-2026</div>
+      <div class="header-title">INFORME DE INCIDENCIAS <span>Y OPORTUNIDADES DE MEJORA</span></div>
+      <div class="header-sub">Proyectos con desplazamiento fuera de Palma · Seabiscuit (Vigo) · Avalon · Lammouche · Thanuja (Port Denia) · PM: Juan Galmés · Junio 2026</div>
+      <div class="header-badges">
+        <span class="badge badge-red">Documento interno</span>
+        <span class="badge badge-orange">Lecciones aprendidas</span>
+        <span class="badge badge-gold">Propuestas 2026-2027</span>
+        <span class="badge badge-blue">Dirección Operaciones</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- 1. OBJETO -->
+<div class="notice notice-blue" style="margin-top:24px">
+  <span style="font-size:22px">📋</span>
+  <div><strong>1. Objeto del informe.</strong> El presente informe recoge las principales incidencias, dificultades operativas y oportunidades de mejora detectadas en los proyectos ejecutados fuera de Palma durante la temporada 2025-2026, especialmente aquellos que han requerido desplazamiento de personal, materiales, maquinaria, oficinas temporales, containers y operativa logística propia. El análisis se centra en la experiencia acumulada en <strong>Seabiscuit</strong> (Freire Shipyard, Vigo) y los proyectos de <strong>Port Denia</strong> (Avalon, Lammouche, Thanuja). El objetivo final es establecer una base de mejora para futuros proyectos fuera de Palma, <strong>reduciendo la improvisación, aumentando la autonomía operativa de Nautipaints</strong> y manteniendo los estándares de calidad, seguridad y rendimiento propios de la empresa.</div>
+</div>
+
+<!-- 2. CONSIDERACIONES GENERALES -->
+<div class="section-title">2. Consideraciones generales sobre proyectos desplazados</div>
+<div class="card">
+  <p style="font-size:13px;margin-bottom:14px">Los proyectos fuera de Palma requieren una planificación previa mucho más exigente que los trabajos realizados en entornos habituales como STP o Palma. La falta de control directo sobre astilleros, espacios, proveedores, accesos, almacenamiento, coberturas y medios auxiliares incrementa de forma importante el riesgo operativo.</p>
+  <p style="font-size:13px;margin-bottom:14px">En estos proyectos se ha comprobado que <strong>no basta con desplazar personal y material</strong>. Es necesario desplazar una operativa completa, incluyendo:</p>
+  <div class="kit-grid">
+    <div class="kit-item">Containers adecuados</div>
+    <div class="kit-item">Material y maquinaria en perfecto estado</div>
+    <div class="kit-item">Oficina equipada</div>
+    <div class="kit-item">Zona propia de almacenamiento</div>
+    <div class="kit-item">Sistema de transporte y reposición</div>
+    <div class="kit-item">Herramientas de mecánica</div>
+    <div class="kit-item">Control documental desde el inicio</div>
+    <div class="kit-item">Responsabilidades definidas</div>
+    <div class="kit-item">Supervisión de coberturas y accesos</div>
+    <div class="kit-item">Alojamiento adecuado</div>
+    <div class="kit-item">Planificación del transporte del equipo</div>
+    <div class="kit-item">Espacios de descanso y cambio de ropa</div>
+  </div>
+  <div class="accion-box" style="margin-top:16px">
+    <strong>Criterio general</strong>
+    Cuanto más lejos se trabaje de Palma, <strong>menor debe ser la dependencia de terceros</strong> y mayor debe ser la autonomía de Nautipaints.
+  </div>
+</div>
+
+<!-- 3. INCIDENCIAS POR ÁREA -->
+<div class="section-title">3. Incidencias y mejoras detectadas por área</div>
+
+<!-- 3.1 Material -->
+<div class="subsection">3.1 · Material, maquinaria y equipos desplazados</div>
+<div class="card">
+  <div class="card-title"><div class="dot" style="background:var(--red)"></div>Incidencias detectadas</div>
+  <p style="font-size:12px;margin-bottom:10px">En proyectos desplazados se han detectado problemas con el estado del material y maquinaria enviados desde Palma. Equipos como extracciones o calentadores han llegado defectuosos o no han funcionado correctamente, obligando a improvisar soluciones en destino.</p>
+  <p style="font-size:12px;margin-bottom:10px">En destinos como Vigo o Denia no siempre es posible conseguir material técnico específico del tipo que Nautipaints utiliza habitualmente. La reposición puede ser lenta, cara o inviable dentro de los plazos necesarios.</p>
+  <div class="risk-box">
+    <strong>Riesgos asociados</strong>
+    Paradas de producción · Improvisaciones técnicas · Pérdida de eficiencia · Incremento de costes · Dependencia de proveedores locales · Afectación a la calidad final · Aumento del estrés del equipo · Pérdida de control operativo
+  </div>
+  <div class="accion-box">
+    <strong>Norma a establecer — acción requerida</strong>
+    <strong>Todo el material que se envíe a un proyecto desplazado debe ser nuevo.</strong> No se admite material de uso previo, independientemente de su aparente estado. El material de mecánica en Palma es mucho más fácil de sustituir; fuera de Palma, cualquier fallo se convierte en un problema de difícil solución. Maquinaria crítica: extracciones, calentadores, ventilación, herramientas eléctricas, equipos de limpieza. Preparar listado cerrado de material crítico con verificación de estado, responsable y fecha de control previo a cada desplazamiento.
+  </div>
+</div>
+
+<!-- 3.2 Containers -->
+<div class="subsection">3.2 · Containers y almacenamiento</div>
+<div class="card">
+  <div class="card-title"><div class="dot" style="background:var(--orange)"></div>Incidencias detectadas</div>
+  <p style="font-size:12px;margin-bottom:10px">En Port Denia se produjeron dificultades importantes para encontrar zonas adecuadas de almacenamiento. El espacio se consiguió finalmente, pero tras una negociación compleja y con sensación de dependencia del astillero. Un único container pequeño resultó insuficiente para proyectos de cierta entidad.</p>
+  <div class="accion-box">
+    <strong>Propuesta de configuración estándar de containers</strong>
+    <div class="grid-2" style="margin-top:10px;gap:12px">
+      <div style="background:#eaf5fa;border-radius:8px;padding:12px;border:1px solid var(--border)">
+        <strong style="color:var(--accent);font-size:12px">Container 1 — Pinturas y fluidos (ATEX)</strong>
+        <p style="font-size:11px;margin-top:6px;color:var(--muted)">Exclusivo para pinturas, barnices, disolventes, catalizadores e inflamables. Ventilación y señalización reglamentaria. Zona de limpieza de pistolas y equipos de aplicación. <em>Separado del material general por seguridad.</em></p>
+      </div>
+      <div style="background:#edfaf2;border-radius:8px;padding:12px;border:1px solid #90dbb0">
+        <strong style="color:var(--green);font-size:12px">Container 2 — Grande (material + mecánica + oficina)</strong>
+        <p style="font-size:11px;margin-top:6px;color:var(--muted)">Stock de consumibles, EPIs, herramienta y referencias habituales. Zona de mecánica y mantenimiento. Kit fijo de oficina (pantalla, impresora, router). Almacén unificado para todos los proyectos en el mismo destino.</p>
+      </div>
+      <div style="background:#fff5ea;border-radius:8px;padding:12px;border:1px solid #f0c890">
+        <strong style="color:var(--orange);font-size:12px">Container 3 — Pequeño (uso diario en obra)</strong>
+        <p style="font-size:11px;margin-top:6px;color:var(--muted)">Pick de material diario, herramienta de uso inmediato, EPIs de reposición. Operativo en el punto de trabajo.</p>
+      </div>
+      <div style="background:#f5f0fc;border-radius:8px;padding:12px;border:1px solid #c8a8e8">
+        <strong style="color:var(--purple);font-size:12px">Nota importante</strong>
+        <p style="font-size:11px;margin-top:6px;color:var(--muted)">Port Denia ha cedido containers que pueden reclamar en cualquier momento. Tener containers <strong>propios</strong> elimina esta dependencia y permite operar sin pedir favores al astillero.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3.3 Oficina -->
+<div class="subsection">3.3 · Oficina temporal de Nautipaints</div>
+<div class="card">
+  <div class="card-title"><div class="dot" style="background:var(--blue)"></div>Incidencias detectadas</div>
+  <p style="font-size:12px;margin-bottom:10px">En Port Denia se ha trabajado con containers facilitados por terceros, no siempre bajo condiciones controladas. La oficina temporal no cuenta con equipamiento fijo y estándar, lo que provoca duplicidad de compras, pérdida de tiempo y falta de organización.</p>
+  <div class="accion-box">
+    <strong>Kit mínimo de oficina desplazada — fijo y permanente</strong>
+    <div class="kit-grid" style="margin-top:8px">
+      <div class="kit-item">Pantalla</div>
+      <div class="kit-item">Impresora</div>
+      <div class="kit-item">Router / conexión</div>
+      <div class="kit-item">Mesa de trabajo</div>
+      <div class="kit-item">Sillas</div>
+      <div class="kit-item">Regletas y alargadores</div>
+      <div class="kit-item">Pizarra / panel planif.</div>
+      <div class="kit-item">Calefacción</div>
+      <div class="kit-item">Aire acondicionado</div>
+      <div class="kit-item">Material básico oficina</div>
+      <div class="kit-item">Sistema de archivo</div>
+      <div class="kit-item">Cargadores y adaptadores</div>
+    </div>
+    <p style="font-size:11px;margin-top:10px;color:var(--muted)">Este kit viaja siempre con el container y <strong>no se desmonta ni se modifica entre proyectos</strong>, aunque en ciertos periodos no esté en uso. La falta de configuración fija genera duplicidad de compras, pérdida de material y desorganización.</p>
+  </div>
+</div>
+
+<!-- 3.4 Mecánica -->
+<div class="subsection">3.4 · Mecánica, herramientas y reparaciones</div>
+<div class="card">
+  <div class="card-title"><div class="dot" style="background:var(--purple)"></div>Incidencias detectadas</div>
+  <p style="font-size:12px;margin-bottom:10px">En proyectos desplazados se ha tenido que improvisar en algunos casos por falta de herramientas o medios propios de reparación, generando dependencia de terceros y retrasos.</p>
+  <div class="accion-box">
+    <strong>Kit mínimo de mecánica desplazada — fijo y permanente</strong>
+    <div class="kit-grid" style="margin-top:8px">
+      <div class="kit-item">Taladro</div>
+      <div class="kit-item">Juego completo de brocas</div>
+      <div class="kit-item">Herramienta manual completa</div>
+      <div class="kit-item">Herramientas eléctricas básicas</div>
+      <div class="kit-item">Recambios habituales</div>
+      <div class="kit-item">Tornillería básica</div>
+      <div class="kit-item">Bridas</div>
+      <div class="kit-item">Cintas técnicas</div>
+      <div class="kit-item">Material para adaptaciones</div>
+      <div class="kit-item">Elementos de revisión</div>
+      <div class="kit-item">Alargadores y conectores</div>
+      <div class="kit-item">Consumibles de reparación rápida</div>
+    </div>
+    <p style="font-size:11px;margin-top:10px;color:var(--muted)">Cuando el volumen de trabajo sea continuo con varios proyectos activos, se considera necesario disponer de un <strong>mecánico asignado de forma permanente</strong>. Si no es posible, las intervenciones deben ser siempre del mismo mecánico para mantener el conocimiento de los equipos y la trazabilidad de las reparaciones.</p>
+  </div>
+</div>
+
+<!-- 4. LOGÍSTICA -->
+<div class="section-title">4. Logística y transporte</div>
+
+<!-- 4.1 Material -->
+<div class="subsection">4.1 · Transporte de materiales</div>
+<div class="card">
+  <p style="font-size:12px;margin-bottom:10px">El envío de material a Port Denia por vías logísticas convencionales puede tardar varios días. Se recomienda <strong>Balearia como vía prioritaria</strong> para envíos urgentes o críticos desde Palma — disponibilidad del material en el mismo día.</p>
+  <div class="accion-box">
+    <strong>Definir previamente para cada desplazamiento</strong>
+    Ruta de envío principal y alternativa · Plazos reales de entrega · Material crítico que debe ir por adelantado · Material de reposición posterior · Responsable de logística · Sistema de control de entradas y salidas
+  </div>
+</div>
+
+<!-- 4.2 Sagunto -->
+<div class="subsection">4.2 · Transporte de piezas Denia–Sagunto</div>
+<div class="card">
+  <p style="font-size:12px">El movimiento de piezas entre Denia y Sagunto presenta dificultades operativas. Sagunto implica controles de entrada y salida, necesidad de justificar movimientos de piezas y complejidad administrativa, lo que puede afectar a la agilidad del proyecto. Revisar protocolo de documentación o evaluar rutas alternativas.</p>
+</div>
+
+<!-- 4.3 Pintores -->
+<div class="subsection">4.3 · Logística de desplazamiento de pintores</div>
+<div class="card">
+  <div class="card-title"><div class="dot" style="background:var(--green)"></div>Contexto</div>
+  <p style="font-size:12px;margin-bottom:10px">Esta temporada ha tenido una presión de trabajo muy alta, especialmente en Denia. Los pintores, sometidos a un nivel elevado de carga y estrés, tienen mayor riesgo de cometer fallos o llegar a las aplicaciones en condiciones de fatiga. La logística del desplazamiento influye directamente en el descanso, la concentración, la calidad de ejecución y la seguridad del trabajo.</p>
+  <div class="accion-box">
+    <strong>Recomendación — Barco (Balearia) para desplazamiento de pintores</strong>
+    <p style="font-size:12px;margin-top:6px"><strong>Opción propuesta:</strong> Desplazamiento en barco el mismo día → llegada, revisión del proyecto y apoyo previo → descanso adecuado → inicio temprano al día siguiente completamente descansados → regreso ese mismo día en avión o barco según horario y tipo de pintada.</p>
+    <p style="font-size:11px;margin-top:8px;color:var(--muted)">Analizar según: tipo de aplicación · horario previsto · duración del trabajo · nivel de exigencia técnica · necesidad de descanso previo · disponibilidad barco/vuelo · riesgo de fatiga · hora prevista de finalización.</p>
+  </div>
+  <div class="accion-box" style="background:#edfaf2;border-left-color:var(--green)">
+    <strong>Acción requerida</strong>
+    Incluir en la planificación de cada proyecto desplazado un <strong>apartado específico de logística del personal</strong>, no solo de materiales.
+  </div>
+</div>
+
+<!-- 5. PERSONAL Y ALOJAMIENTO -->
+<div class="section-title">5. Personal desplazado y alojamiento</div>
+<div class="card">
+  <p style="font-size:12px;margin-bottom:12px">En proyectos de larga duración (un mes o superior), el alojamiento influye directamente en el descanso, la convivencia, el rendimiento y la estabilidad del equipo. Los equipos de Nautipaints no deben alojarse en pisos con demasiadas personas, especialmente cuando el nivel de presión del proyecto es alto.</p>
+  <div class="accion-box">
+    <strong>Estándar de alojamiento para personal Nautipaints</strong>
+    <div class="kit-grid" style="margin-top:8px">
+      <div class="kit-item">Máximo 2 personas por piso</div>
+      <div class="kit-item">Jefe de obra / PM con piso individual</div>
+      <div class="kit-item">Ubicación cercana al proyecto</div>
+      <div class="kit-item">Condiciones adecuadas de descanso</div>
+      <div class="kit-item">Separación equipos propios / externos</div>
+      <div class="kit-item">Revisión previa de viviendas</div>
+    </div>
+    <p style="font-size:11px;margin-top:10px;color:var(--muted)">El personal subcontratado (griegos, etc.) se gestiona bajo sus propios acuerdos; este criterio no les aplica.</p>
+  </div>
+</div>
+
+<!-- 6. RENDIMIENTO PERSONAL EXTERNO -->
+<div class="section-title">6. Rendimiento de personal externo</div>
+<div class="card">
+  <div class="card-title"><div class="dot" style="background:var(--red)"></div>Incidencias detectadas</div>
+  <table class="data-table" style="margin-bottom:12px">
+    <thead><tr><th>Empresa</th><th>Rendimiento general</th><th>Caso específico</th><th>Impacto</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="tag tag-orange">993 DOST (griegos)</span></td>
+        <td><span class="warn">50–60% del estándar</span></td>
+        <td>Un operario al <strong class="bad">30%</strong> en Seabiscuit</td>
+        <td>Carga sobre equipo NP, mayor supervisión, desviaciones en planificación</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-red">992 Construcción Line</span></td>
+        <td><span class="bad">~10% (últimos enviados)</span></td>
+        <td>Rendimiento extremadamente bajo. Dificultades operativas graves en remates y masillas</td>
+        <td>Alta carga de supervisión, riesgo de errores, impacto en acabados finales</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="risk-box">
+    <strong>Riesgos asociados al personal externo</strong>
+    Sobrecarga del personal propio · Pérdida de productividad · Necesidad de mayor supervisión · Riesgo de errores · Aumento del estrés operativo · Desviaciones en planificación · Impacto directo en calidad y acabados finales
+  </div>
+  <div class="accion-box">
+    <strong>Acción requerida</strong>
+    Antes de contar con personal externo en proyectos desplazados, valorar: nivel técnico real · experiencia previa · autonomía · rendimiento esperado · necesidad de supervisión · conveniencia económica real · riesgo sobre acabados finales. <strong>No planificar proyectos asumiendo que el personal externo rinde igual que el personal propio de Nautipaints.</strong>
+  </div>
+</div>
+
+<!-- 7. ASTILLEROS -->
+<div class="section-title">7. Astilleros y entorno de trabajo</div>
+
+<div class="subsection">7.1 · Freire Shipyard, Vigo — Proyecto Seabiscuit</div>
+<div class="card">
+  <table class="data-table" style="margin-bottom:12px">
+    <thead><tr><th>Área</th><th>Situación observada</th></tr></thead>
+    <tbody>
+      <tr><td>Funcionamiento interno / organigramas</td><td>Nivel notablemente inferior a STP. Fricciones constantes en el día a día.</td></tr>
+      <tr><td>Disponibilidad de material habitual</td><td>Difícil de conseguir. El entorno no es permeable a los proveedores y referencias de Nautipaints.</td></tr>
+      <tr><td>Entorno y riesgo de contaminación</td><td>Obra en vivo en astillero activo. <strong>Riesgo alto.</strong> No se registraron incidencias — resultado positivo y en parte afortunado.</td></tr>
+      <tr><td>Personal desplazado Nautipaints</td><td class="good">Sin incidencias reseñables.</td></tr>
+    </tbody>
+  </table>
+  <div class="accion-box">
+    <strong>Para futuros proyectos en astilleros menos preparados que STP — auditoría previa</strong>
+    Zonas de trabajo y riesgo de contaminación · Proveedores disponibles · Organigrama y responsables reales · Espacios de almacenamiento · Posibilidad de instalar containers · Nivel de colaboración del astillero · Medios auxiliares disponibles · Riesgo real para la calidad final
+  </div>
+</div>
+
+<div class="subsection">7.2 · Port Denia</div>
+<div class="card">
+  <table class="data-table" style="margin-bottom:12px">
+    <thead><tr><th>Área</th><th>Incidencia</th><th>Recomendación</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Almacenamiento</strong></td>
+        <td>Difícil conseguir espacio. Gestión como favor del astillero.</td>
+        <td>Containers propios. No depender de Port Denia para espacios.</td>
+      </tr>
+      <tr>
+        <td><strong>Coberturas</strong></td>
+        <td>Múltiples incidencias en Avalon y Lammouche. Caso La Mus: cubrición general sin acuerdo previo.</td>
+        <td>Nunca ejecutar cubrición sin acuerdo escrito previo con astillero y/o cliente. Siempre bajo supervisión Nautipaints.</td>
+      </tr>
+      <tr>
+        <td><strong>Ubicación de barcos</strong></td>
+        <td>Avalon: agua de lluvia estancada bajo el casco. Restos de lavados a presión acumulados.</td>
+        <td>Verificar drenaje adecuado de la zona antes de aceptar cualquier ubicación.</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="accion-box">
+    <strong>Revisión previa obligatoria antes de iniciar trabajos en Port Denia</strong>
+    Ubicación exacta del barco · Drenaje de la zona · Actividades de barcos cercanos · Condiciones de cobertura y responsable · Zonas de almacenamiento · Espacios para containers · Accesos de personal y material · Posibles interferencias con otros trabajos
+  </div>
+</div>
+
+<!-- 8. GESTIÓN DE PROYECTOS -->
+<div class="section-title">8. Gestión de proyectos</div>
+<div class="card">
+  <p style="font-size:12px;margin-bottom:12px">En Port Denia, aproximadamente el <strong>90% de los proyectos ya estaban iniciados</strong> cuando Juan Galmés asumió su gestión el <strong>14/02/2026</strong>. Esto ha generado sorpresas, falta de control inicial, problemas en detalles, retrasos acumulados y dificultad para mantener los estándares habituales de Nautipaints. Aunque se han podido subsanar la mayoría de los puntos, el resultado final se ha alejado en algunos aspectos de los objetivos de una empresa de alto rendimiento.</p>
+  <div class="accion-box">
+    <strong>Norma a establecer — PM desde el inicio</strong>
+    El Project Manager responsable debe estar presente desde el inicio real del proyecto. Todo debe quedar perfectamente reportado desde la fase inicial. La gestión inicial debe incluir: alcance claro · condiciones del astillero · responsables · riesgos · planificación · coberturas · accesos · materiales · subcontratas · puntos críticos · exclusiones · posibles trabajos extra · condiciones de aceptación · fotografías y evidencias · revisión de contrato · criterios de calidad.
+  </div>
+</div>
+
+<div class="subsection">8.1 · Evaluación de carga y aceptación de proyectos</div>
+<div class="card">
+  <div class="notice notice-red" style="margin-bottom:12px">
+    <span style="font-size:20px">⚠️</span>
+    <div><strong>Caso THANUJA — ejemplo de referencia.</strong> Se identifica como un proyecto que probablemente no debería haberse aceptado en ese momento. Su ejecución obligó a presionar mucho al equipo, generó un nivel de riesgo elevado y redujo la tranquilidad necesaria para gestionar correctamente otros proyectos simultáneos. Existía una <strong>diferencia de color</strong> que, con más tiempo y menor presión, habría podido detectarse, controlarse y ponerse sobre la mesa antes de convertirse en un problema. Con la presión acumulada, no hubo ese margen.</div>
+  </div>
+  <div class="accion-box">
+    <strong>Evaluación de capacidad antes de aceptar proyectos simultáneos desplazados</strong>
+    Carga de trabajo total · Personal disponible · Nivel de fatiga · Riesgo técnico · Dependencia de terceros · Capacidad logística · Disponibilidad del PM · Capacidad de control de calidad · Riesgo reputacional · Margen real de maniobra · Impacto sobre otros proyectos activos<br><br>
+    <strong>No todos los proyectos deben aceptarse si comprometen la calidad, la seguridad o la estabilidad de los equipos.</strong>
+  </div>
+</div>
+
+<!-- 9. INCIDENCIAS POR PROYECTO -->
+<div class="section-title">9. Incidencias específicas por proyecto</div>
+<div class="grid-2">
+  <div class="card">
+    <div class="card-title"><div class="dot" style="background:#6a20c0"></div>9.1 · Seabiscuit — Freire Shipyard, Vigo</div>
+    <table class="data-table" style="margin-bottom:10px">
+      <tbody>
+        <tr><td>Preparación astillero</td><td class="warn">Inferior a STP. Fricciones operativas.</td></tr>
+        <tr><td>Material habitual</td><td class="warn">Difícil de conseguir en destino.</td></tr>
+        <tr><td>Entorno / contaminación</td><td class="warn">Riesgo alto. Sin incidencias — resultado positivo.</td></tr>
+        <tr><td>Personal Nautipaints</td><td class="good">Sin incidencias reseñables.</td></tr>
+        <tr><td>Personal externo (DOST)</td><td class="warn">Un operario al 30%. Rendimiento general 50-60%.</td></tr>
+        <tr><td>Riesgo técnico</td><td class="warn">Elevado. Nivel de presión alto.</td></tr>
+        <tr><td>Resultado</td><td class="good">Proyecto cerrado correctamente. Carta firmada.</td></tr>
+      </tbody>
+    </table>
+    <div class="accion-box">
+      <strong>Para futuros proyectos en Vigo</strong>
+      Desplazar operativa más completa (container, material nuevo, oficina, herramientas). Evaluar mejor la conveniencia de aceptar proyectos adicionales cuando la carga ya es elevada.
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title"><div class="dot" style="background:#2060a0"></div>9.2 · Avalon — Port Denia</div>
+    <table class="data-table" style="margin-bottom:10px">
+      <tbody>
+        <tr><td>Coberturas</td><td class="bad">Múltiples incidencias. Riesgo alto.</td></tr>
+        <tr><td>Drenaje bajo el casco</td><td class="bad">Agua estancada. Restos de lavados.</td></tr>
+        <tr><td>Almacenamiento</td><td class="warn">Conseguido tras negociación compleja.</td></tr>
+        <tr><td>Gestión proyec.</td><td class="warn">Asumido al 90%. Sin control del inicio.</td></tr>
+        <tr><td>Retrasos acumulados</td><td class="warn">Lluvia (externo) + desviación horas.</td></tr>
+        <tr><td>Carta de aceptación</td><td class="bad">Pendiente a la fecha del informe.</td></tr>
+      </tbody>
+    </table>
+    <div class="accion-box">
+      <strong>Para futuros proyectos en Port Denia</strong>
+      No iniciar sin: supervisión directa de coberturas · espacios propios · containers definidos · PM desde el inicio · planificación documentada · revisión previa de la ubicación del barco.
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title"><div class="dot" style="background:#c05010"></div>9.3 · Lammouche — Port Denia</div>
+    <table class="data-table" style="margin-bottom:10px">
+      <tbody>
+        <tr><td>Retrasos por lluvia</td><td class="warn">8+ días perdidos. Factor externo a NP.</td></tr>
+        <tr><td>Coberturas / entradas agua</td><td class="warn">Incidencias. Necesidad de definición previa.</td></tr>
+        <tr><td>Cierre contractual</td><td class="warn">Tapado general sin acuerdo suficientemente claro (La Mus).</td></tr>
+        <tr><td>Construction Line</td><td class="bad">20% rendimiento en remates.</td></tr>
+        <tr><td>Carta de aceptación</td><td class="good">Firmada 20/04/2026 ✓</td></tr>
+      </tbody>
+    </table>
+    <div class="accion-box">
+      <strong>Lección clave</strong>
+      Todo lo relacionado con tapados, coberturas y condiciones de trabajo debe quedar definido con Port Denia y el cliente antes del inicio. No dejar ningún detalle de este tipo en manos de terceros.
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title"><div class="dot" style="background:#1a8c45"></div>9.4 · Thanuja — Port Denia</div>
+    <table class="data-table" style="margin-bottom:10px">
+      <tbody>
+        <tr><td>Bolsas de aire</td><td class="warn">Trabajo extra no previsto. Gestionado.</td></tr>
+        <tr><td>Cambio de personal</td><td class="warn">Necesario 26/03. Constr. Line bajo rendim.</td></tr>
+        <tr><td>Diferencia de color gris</td><td class="warn">Incidencia crítica. ICOMIA Ch.8 — no imputable a NP. Con más margen se habría detectado antes.</td></tr>
+        <tr><td>Presión operativa</td><td class="bad">Alta. Proyecto que no debería haberse aceptado en ese contexto.</td></tr>
+        <tr><td>Carta de aceptación</td><td class="good">Firmada 14/04/2026 ✓</td></tr>
+      </tbody>
+    </table>
+    <div class="accion-box">
+      <strong>Lección clave</strong>
+      La presión operativa reduce el margen para detectar y gestionar problemas técnicos. Aceptar demasiados proyectos simultáneos compromete la calidad del resultado final.
+    </div>
+  </div>
+</div>
+
+<!-- 10. SUBCONTRATAS -->
+<div class="section-title">10. Subcontratas y empresas externas en Port Denia</div>
+<div class="card">
+  <p style="font-size:12px;margin-bottom:10px">En Port Denia existe dificultad para encontrar empresas subcontratables al nivel de calidad al que Nautipaints está acostumbrado en entornos como STP. Traer empresas de fuera, aunque sean afines, resulta complejo — trabajar desplazados influye en la ejecución final, los acabados y los costes.</p>
+  <p style="font-size:12px;margin-bottom:10px">Ejemplo: empresas de chorro locales cuyo método de trabajo está por debajo del estándar actual de Nautipaints. No necesariamente lo hacen mal, pero la diferencia de nivel, metodología y expectativas no es comparable al estándar habitual de la empresa.</p>
+  <div class="accion-box">
+    <strong>Valorar antes de contratar subcontratas en proyectos desplazados</strong>
+    Nivel técnico real · Experiencia previa con Nautipaints · Capacidad de desplazamiento · Coste real del desplazamiento · Calidad esperada · Supervisión necesaria · Riesgo de acabado final · Alternativas locales · Impacto sobre planificación
+  </div>
+</div>
+
+<!-- 11. CONTROL MATERIALES -->
+<div class="section-title">11. Control de materiales e inventario</div>
+<div class="card">
+  <p style="font-size:12px;margin-bottom:10px">Con varios proyectos o varios frentes simultáneos, el control de material se complica si no existe almacén unificado y responsable claro. Cuando pintura, maquinaria, consumibles y herramientas están repartidos, se genera confusión, pérdida de tiempo y duplicidades. Hay que ser <strong>más estrictos con todos</strong> — operarios y gestión — en el uso, devolución y registro del material.</p>
+  <div class="accion-box">
+    <strong>Sistema de almacén desplazado</strong>
+    Ubicación única o claramente definida · Separación por tipos de material · Responsable de almacén · Registro de entradas y salidas · Inventario actualizado · Control de consumibles, pinturas y maquinaria · Revisión semanal · Normas de orden y limpieza · Sistema de reposición anticipada
+  </div>
+</div>
+
+<!-- 12. CONCLUSIONES -->
+<div class="section-title">12. Conclusiones generales</div>
+<div class="card">
+  <p style="font-size:13px;margin-bottom:14px">Los proyectos desplazados fuera de Palma requieren una operativa específica y no pueden gestionarse como una simple extensión de los trabajos habituales en STP o Palma.</p>
+  <table class="data-table">
+    <thead><tr><th>#</th><th>Conclusión</th></tr></thead>
+    <tbody>
+      <tr><td><span class="num-circle">1</span></td><td>Nautipaints debe depender menos de astilleros, terceros y favores.</td></tr>
+      <tr><td><span class="num-circle">2</span></td><td>Los containers propios son una necesidad operativa, no solo logística.</td></tr>
+      <tr><td><span class="num-circle">3</span></td><td>El material enviado debe ser nuevo. Sin excepciones.</td></tr>
+      <tr><td><span class="num-circle">4</span></td><td>Pintura y material general deben almacenarse por separado (seguridad).</td></tr>
+      <tr><td><span class="num-circle">5</span></td><td>El Project Manager debe estar desde el inicio del proyecto.</td></tr>
+      <tr><td><span class="num-circle">6</span></td><td>Las coberturas deben ser ejecutadas o supervisadas directamente por Nautipaints.</td></tr>
+      <tr><td><span class="num-circle">7</span></td><td>La ubicación del barco debe revisarse antes de empezar.</td></tr>
+      <tr><td><span class="num-circle">8</span></td><td>Los alojamientos deben proteger el descanso del equipo.</td></tr>
+      <tr><td><span class="num-circle">9</span></td><td>El transporte de pintores debe planificarse según fatiga, horario y tipo de trabajo.</td></tr>
+      <tr><td><span class="num-circle">10</span></td><td>No todos los proyectos deben aceptarse si comprometen calidad, seguridad o rendimiento.</td></tr>
+      <tr><td><span class="num-circle">11</span></td><td>Las subcontratas locales deben evaluarse antes de asumir que cumplen el estándar Nautipaints.</td></tr>
+      <tr><td><span class="num-circle">12</span></td><td>El almacén desplazado debe estar unificado, ordenado y bajo control estricto.</td></tr>
+      <tr><td><span class="num-circle">13</span></td><td>El personal externo no debe planificarse como si tuviera el mismo rendimiento que el personal propio.</td></tr>
+      <tr><td><span class="num-circle">14</span></td><td>La oficina, mecánica, almacén y pintura deben formar parte de una operativa desplazada estándar.</td></tr>
+      <tr><td><span class="num-circle">15</span></td><td>Deben establecerse espacios adecuados para descanso, cambio y organización del personal.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 13. ACCIONES PRIORITARIAS -->
+<div class="section-title">13. Acciones recomendadas prioritarias</div>
+<div class="card" style="overflow-x:auto">
+  <table class="data-table priority-table">
+    <thead><tr><th>Acción</th><th>Descripción</th><th>Prioridad</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Estándar operativa desplazada</td>
+        <td>Protocolo interno para proyectos fuera de Palma: containers, oficina, almacén, mecánica, transporte, alojamiento, personal, control documental, responsables.</td>
+        <td><span class="tag tag-red">Alta</span></td>
+      </tr>
+      <tr>
+        <td>Containers propios</td>
+        <td>Container pinturas/fluidos (ATEX) · Container grande material+mecánica+oficina · Container pequeño uso diario</td>
+        <td><span class="tag tag-red">Alta</span></td>
+      </tr>
+      <tr>
+        <td>Material nuevo siempre</td>
+        <td>Todo material crítico desplazado debe ser nuevo o estado prácticamente nuevo, revisado y validado antes del envío. Checklist obligatorio.</td>
+        <td><span class="tag tag-red">Alta</span></td>
+      </tr>
+      <tr>
+        <td>PM desde el inicio</td>
+        <td>No iniciar proyectos desplazados sin que el PM haya participado en la fase inicial. Si hay relevo, traspaso formal y documentado obligatorio.</td>
+        <td><span class="tag tag-red">Alta</span></td>
+      </tr>
+      <tr>
+        <td>Control de coberturas</td>
+        <td>No aceptar proyectos en los que las coberturas no estén bajo ejecución directa o supervisión estricta de Nautipaints.</td>
+        <td><span class="tag tag-red">Alta</span></td>
+      </tr>
+      <tr>
+        <td>Evaluación de proyectos</td>
+        <td>Antes de aceptar varios proyectos simultáneos, evaluación de capacidad, riesgo, carga de trabajo y disponibilidad real del equipo.</td>
+        <td><span class="tag tag-red">Alta</span></td>
+      </tr>
+      <tr>
+        <td>Kit fijo oficina y mecánica</td>
+        <td>Kits permanentes para oficina desplazada y mecánica, inventariados y no reutilizados para otros fines.</td>
+        <td><span class="tag tag-orange">Media</span></td>
+      </tr>
+      <tr>
+        <td>Almacén desplazado unificado</td>
+        <td>Materiales, pinturas, herramientas y mecánica bajo sistema de control claro, con responsable asignado.</td>
+        <td><span class="tag tag-orange">Media</span></td>
+      </tr>
+      <tr>
+        <td>Estándar de alojamiento</td>
+        <td>Condiciones mínimas de alojamiento para proteger el descanso y rendimiento del personal desplazado. Máx. 2 personas/piso. PM con piso individual.</td>
+        <td><span class="tag tag-orange">Media</span></td>
+      </tr>
+      <tr>
+        <td>Evaluación de subcontratas</td>
+        <td>Capacidad real de empresas externas, tanto locales como desplazadas, antes de incorporarlas a proyectos críticos.</td>
+        <td><span class="tag tag-orange">Media</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 14-15. PROPUESTAS PRÓXIMA TEMPORADA -->
+<div class="section-title">14 & 15. Propuestas para la próxima temporada 2026-2027</div>
+
+<div class="grid-2">
+  <div class="card">
+    <div class="card-title"><div class="dot" style="background:var(--gold)"></div>14.1 · Cajas específicas para transporte de materiales</div>
+    <p style="font-size:12px;margin-bottom:10px">Se propone crear cajas específicas similares a las utilizadas en el retorno del proyecto Vigo → Palma. Este sistema aporta ventajas importantes en almacenaje, protección del material, orden, control de inventario, aprovechamiento del espacio, carga/descarga y transporte en plataformas. Al optimizar el espacio en envíos, puede resultar más económico y eficiente.</p>
+    <div class="prop-box">
+      <strong>Acción propuesta</strong>
+      Diseñar un sistema de cajas estándar para proyectos desplazados, con medidas adecuadas, identificación exterior, listado de contenido y criterio de uso por tipo de material.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="dot" style="background:var(--accent)"></div>14.2 · Implantación de inteligencia artificial en la gestión</div>
+    <p style="font-size:12px;margin-bottom:10px">Con el volumen actual de información, comunicaciones, reportes, planificaciones, incidencias y documentación generada en los proyectos, se considera necesario buscar métodos de trabajo más dinámicos, ágiles y eficientes. Algunos sistemas de plantillas y herramientas internas presentan limitaciones para el nivel de exigencia y volumen de trabajo actual.</p>
+    <p style="font-size:12px;margin-bottom:10px">La IA puede apoyar en: preparación de informes · resúmenes de incidencias · organización de información · seguimiento de proyectos · estructuración de actas · control de acciones pendientes · redacción de comunicaciones · análisis de lecciones aprendidas · apoyo en toma de decisiones operativas.</p>
+    <div class="prop-box">
+      <strong>Acción propuesta</strong>
+      Analizar qué procesos internos pueden apoyarse con IA y herramientas digitales, priorizando los que generan más carga administrativa o duplicidad. Revisar el sistema actual de plantillas y gestión documental. El objetivo no es sustituir al PM, sino facilitarle herramientas que reduzcan carga administrativa y mejoren la trazabilidad.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="dot" style="background:var(--orange)"></div>14.3 · Nuevos containers y mejora de la operativa desplazada</div>
+    <p style="font-size:12px;margin-bottom:10px">Todo lo mencionado anteriormente refuerza la necesidad de containers propios adaptados a la operativa de Nautipaints. Serán especialmente importantes cuando el astillero no disponga de espacios adecuados para almacenamiento, oficina, descanso o cambio de ropa.</p>
+    <div class="prop-box">
+      <strong>Inversión a valorar</strong>
+      Container de material · Container de uso diario · Container/espacio para pinturas (ATEX) · Container-oficina · Espacio para mecánica · Zona de descanso y cambio para personal
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="dot" style="background:var(--green)"></div>14.4 · Espacios para descanso, cambio de ropa y personal</div>
+    <p style="font-size:12px;margin-bottom:10px">En proyectos desplazados es necesario prever un espacio adecuado para que el personal pueda descansar, merendar, cambiarse y organizarse. En Freire inicialmente no había un espacio adecuado; en Port Denia, especialmente en invierno, también es necesario. Esto no solo mejora las condiciones del personal, sino que favorece el orden, la convivencia, la seguridad y el rendimiento general.</p>
+    <div class="prop-box">
+      <strong>Incluir en la planificación de cada proyecto desplazado</strong>
+      Zona de descanso · Zona para cambiarse · Espacio para merendar · Espacio protegido frente a frío/lluvia/calor · Espacio mínimo para subcontratas · Normas de uso, limpieza y orden
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="dot" style="background:var(--purple)"></div>14.5 · Reuniones posteriores a aplicaciones y pintadas</div>
+    <p style="font-size:12px;margin-bottom:10px">Se propone implantar pequeñas reuniones posteriores a las aplicaciones o pintadas críticas, en formato breve y práctico, para analizar cómo se han desarrollado los trabajos y generar aprendizaje interno. Involucrar a pintores, aplicadores, responsables de obra y PM.</p>
+    <p style="font-size:12px;margin-bottom:10px">Contenido: qué ha ido bien · qué ha ido mal · qué se podría haber hecho mejor · qué problemas se detectaron · qué riesgos hay que tener en cuenta en futuras pintadas. Enfoque corporativo, constructivo y de mejora continua — no crítica individual.</p>
+    <div class="prop-box">
+      <strong>Beneficios esperados</strong>
+      Mayor aprendizaje entre pintores · Mejor transmisión de experiencia · Detección temprana de problemas repetitivos · Mejora de criterios técnicos · Reducción de errores futuros · Mayor implicación del equipo en el resultado final
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="dot" style="background:var(--red)"></div>14.6 · Revisión de carga de trabajo, festivos y periodos de descanso</div>
+    <p style="font-size:12px;margin-bottom:10px">Durante esta temporada se ha trabajado en situaciones de alta exigencia, con periodos de mucha presión acumulada. Aunque en muchos casos se han conseguido sacar los trabajos adelante, este sistema puede acabar afectando al desarrollo general de los proyectos, al rendimiento de los trabajadores y a la calidad final.</p>
+    <p style="font-size:12px;margin-bottom:10px">El trabajo en días festivos o periodos de descanso debe evitarse salvo casos realmente excepcionales. Existe el riesgo de que una pequeña emergencia se convierta en dinámica habitual, acabando en trabajo en sábados, domingos o festivos. <strong>Esto no es sostenible a largo plazo.</strong></p>
+    <div class="prop-box">
+      <strong>Acción propuesta</strong>
+      Revisar internamente la política de trabajo en festivos y periodos de descanso. Planificar los proyectos con márgenes más realistas, evitando que la solución habitual a cualquier desviación sea aumentar la carga sobre el equipo. Proteger la capacidad de trabajo de las personas.
+    </div>
+  </div>
+</div>
+
+<!-- CIERRE -->
+<div class="section-title">Cierre</div>
+<div class="notice notice-gold">
+  <span style="font-size:22px">🎯</span>
+  <div><strong>La experiencia en proyectos fuera de Palma demuestra que Nautipaints tiene capacidad técnica y humana para ejecutar trabajos complejos en desplazamiento.</strong> Sin embargo, para mantener los estándares de calidad, seguridad y rendimiento de la empresa, es necesario reforzar la planificación previa, la autonomía logística y el control operativo. El objetivo no debe ser únicamente ejecutar el proyecto, sino ejecutarlo <strong>con las mismas garantías, orden y estándares que en los entornos habituales de trabajo</strong>. Para ello, se considera prioritario establecer una operativa desplazada estándar, con medios propios, containers adecuados, material en perfecto estado, PM desde el inicio, control de coberturas, almacén unificado y criterios claros de aceptación de proyectos. Solo de esta manera se reducirá la improvisación, se protegerá al equipo desplazado y se mantendrá el nivel de calidad que Nautipaints busca ofrecer en todos sus proyectos.</div>
+</div>
+
+</main>
+<footer>NAUTIPAINTS · Informe de Incidencias y Oportunidades de Mejora · Proyectos Externos Temporada 2025-2026 · Seabiscuit (Vigo) + Port Denia · PM Juan Galmés · Junio 2026</footer>
+</body>
+</html>

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INFORME AVALON · NAUTIPAINTS</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --navy:#0b1e2d;--gold:#c99b22;--gold2:#e8b930;--blue:#1e7fb5;--accent:#1a9fd4;
+  --green:#1e9e55;--red:#d43333;--orange:#d4721a;--purple:#8b3fad;
+  --card:#ffffff;--border:#d4e6f0;--text:#1a2636;--muted:#5a7a8e;--bg:#f0f6fa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Source Sans 3','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+header{background:linear-gradient(135deg,#2d0a0a 0%,#4a1010 60%,#7a1a1a 100%);color:#fff;padding:32px 40px 28px;border-bottom:4px solid var(--gold);position:relative;overflow:hidden}
+header::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
+.header-inner{display:flex;align-items:flex-start;gap:28px;position:relative;z-index:1}
+.anchor-icon{font-size:52px;line-height:1}
+.header-text{flex:1}
+.header-season{font-size:11px;letter-spacing:3px;color:var(--gold2);text-transform:uppercase;margin-bottom:6px;font-weight:700}
+.header-title{font-size:30px;font-weight:800;letter-spacing:1px;line-height:1.15}
+.header-title span{color:var(--gold2)}
+.header-sub{font-size:13px;color:rgba(255,255,255,.6);margin-top:5px}
+.header-badges{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.badge{padding:5px 14px;border-radius:20px;font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase}
+.badge-blue{background:rgba(26,159,212,.25);border:1px solid var(--accent);color:#9dd8f5}
+.badge-gold{background:rgba(201,155,34,.25);border:1px solid var(--gold);color:var(--gold2)}
+.badge-orange{background:rgba(212,114,26,.25);border:1px solid var(--orange);color:#f5b066}
+.badge-red{background:rgba(212,51,51,.25);border:1px solid var(--red);color:#f5a0a0}
+main{padding:28px 36px 56px;max-width:1480px;margin:0 auto}
+.section-title{font-size:13px;font-weight:800;letter-spacing:2.5px;color:var(--accent);text-transform:uppercase;margin:36px 0 16px;display:flex;align-items:center;gap:10px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+.section-title::before{content:'';display:inline-block;width:4px;height:18px;background:var(--gold);border-radius:2px;flex-shrink:0}
+.notice{border-radius:10px;padding:14px 18px;margin-bottom:20px;display:flex;gap:14px;align-items:flex-start;font-size:13px}
+.notice-blue{background:#e8f5fb;border:1px solid #a8d8ee}
+.notice-orange{background:#fff5ea;border:1px solid #f0c890}
+.notice-red{background:#fff0ee;border:1px solid #f0b8b0}
+.notice-green{background:#edfaf2;border:1px solid #90dbb0}
+.notice-purple{background:#f5f0fc;border:1px solid #c8a8e8}
+.notice strong{color:var(--text)}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:6px}
+.kpi-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;position:relative;overflow:hidden}
+.kpi-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.kpi-card.c-blue::after{background:var(--accent)}.kpi-card.c-gold::after{background:var(--gold)}
+.kpi-card.c-green::after{background:var(--green)}.kpi-card.c-red::after{background:var(--red)}
+.kpi-card.c-orange::after{background:var(--orange)}.kpi-card.c-purple::after{background:var(--purple)}
+.kpi-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:7px;font-weight:700}
+.kpi-value{font-size:24px;font-weight:900;color:var(--text);line-height:1}
+.kpi-value.sm{font-size:19px}
+.kpi-sub{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:18px}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 22px;overflow:hidden}
+.card-title{font-size:12px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.card-title .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.data-table{width:100%;border-collapse:collapse;font-size:12px}
+.data-table th{background:#eaf5fa;color:var(--accent);font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:9px 12px;text-align:left;border-bottom:2px solid var(--border)}
+.data-table td{padding:8px 12px;border-bottom:1px solid #e8eff5;vertical-align:top}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:#f5fbfe}
+.data-table tfoot td{font-weight:800;background:#f0f8fc;border-top:2px solid var(--border)}
+.num{text-align:right;font-weight:700}
+.tag{display:inline-block;padding:2px 8px;border-radius:8px;font-size:10px;font-weight:800}
+.tag-blue{background:#daeef8;color:#1463a0}.tag-green{background:#daf4e7;color:#145c30}
+.tag-orange{background:#fef0de;color:#8c4a10}.tag-red{background:#fee8e6;color:#8c1a1a}
+.tag-purple{background:#f0e8f8;color:#5a1a8c}.tag-gold{background:#fef7e0;color:#7a5c00}
+.good{color:var(--green)!important;font-weight:700}.bad{color:var(--red)!important;font-weight:700}
+.warn{color:var(--orange)!important;font-weight:700}.gold{color:var(--gold)!important}
+.acc{color:var(--accent)!important}.muted{color:var(--muted)}
+.prog-label{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:5px;margin-top:10px;font-weight:600}
+.prog-bar{height:8px;background:#e4eff5;border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;border-radius:4px}
+.pf-green{background:linear-gradient(90deg,#14753e,var(--green))}.pf-orange{background:linear-gradient(90deg,#a04010,var(--orange))}
+.pf-red{background:linear-gradient(90deg,#8c1a1a,var(--red))}.pf-blue{background:linear-gradient(90deg,#0e4a7a,var(--accent))}
+.pf-gold{background:linear-gradient(90deg,#7a5000,var(--gold))}
+.timeline{display:grid;gap:10px}
+.tl-item{display:grid;grid-template-columns:120px 1fr;gap:12px;align-items:start;font-size:12px}
+.tl-date{color:var(--gold);font-weight:800;font-size:12px}
+.tl-body{border-left:2px solid var(--border);padding-left:12px;color:var(--text);line-height:1.5}
+.tl-body strong{color:var(--accent)}
+.emp-row{display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid var(--border);font-size:12px}
+.emp-row:last-child{border-bottom:none}
+.emp-name{width:170px;font-weight:700}
+.emp-bar-wrap{flex:1}
+.paint-system{border-radius:10px;overflow:hidden;border:1px solid var(--border);margin-bottom:14px}
+.paint-system-header{padding:10px 16px;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#fff}
+.ps-alexseal{background:linear-gradient(90deg,#1a3d5c,#2060a0)}
+.paint-zone{padding:12px 16px;border-bottom:1px solid #e8f2f8;font-size:12px}
+.paint-zone:last-child{border-bottom:none}
+.paint-zone-name{font-weight:800;color:var(--accent);margin-bottom:6px;font-size:11px;text-transform:uppercase;letter-spacing:.8px}
+.paint-layer{display:flex;align-items:flex-start;gap:10px;padding:3px 0;font-size:11px;border-bottom:1px solid #f0f8fc}
+.paint-layer:last-child{border-bottom:none}
+.layer-num{background:var(--accent);color:#fff;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;flex-shrink:0;margin-top:1px}
+.layer-product{flex:1;font-weight:700;color:var(--text)}
+.layer-ref{color:var(--muted);font-size:10px}
+.layer-color{padding:1px 6px;border-radius:4px;font-size:9px;font-weight:800;background:#f0f8fc;color:var(--accent)}
+.chart-wrap{position:relative;min-height:200px}
+.rend-badge{display:inline-block;padding:3px 10px;border-radius:10px;font-size:11px;font-weight:800}
+.rend-100{background:#daf4e7;color:#145c30}.rend-60{background:#fef0de;color:#8c4a10}
+footer{text-align:center;padding:20px;color:var(--muted);font-size:11px;border-top:2px solid var(--border);background:var(--card);margin-top:8px;letter-spacing:.5px}
+@media print{body{background:#fff}.card,.kpi-card{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <div class="anchor-icon">⚓</div>
+    <div class="header-text">
+      <div class="header-season">Nautipaints · Port Denia · Temporada 2025-2026</div>
+      <div class="header-title">INFORME DE PROYECTO — <span>AVALON</span></div>
+      <div class="header-sub">M/Y Avalon 101 · 46 m · Acero / Aluminio · Alexseal (Mankiewicz) · Refs. P-6266 / 6338 / 6365 / 6455 · PM: Juan Galmés (desde 15/02/2026)</div>
+      <div class="header-badges">
+        <span class="badge badge-orange">⚠ EN REMATES</span>
+        <span class="badge badge-blue">Alexseal — Mankiewicz</span>
+        <span class="badge badge-gold">Port Denia</span>
+        <span class="badge badge-red">Nov 2025 → Jun 2026</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<div class="notice notice-orange" style="margin-top:24px">
+  <span style="font-size:22px">⚠️</span>
+  <div><strong>Proyecto en fase de remates (16/06/2026).</strong> Carta de aceptación <strong class="bad">pendiente</strong>. Repetición zona popa central + lomo estribor (obra 6266, ejecutada 4–7/06) <strong class="warn">pendiente revisión</strong> una vez limpio el barco. Ampliaciones de trabajo no planificadas a lo largo del proyecto estimadas en <strong class="bad">2–4 semanas de retraso</strong> acumulado. Cambio de PM el <strong>15/02/2026</strong>: Juan Galmés sustituye a Cristian Liébana.</div>
+</div>
+
+<!-- KPIs -->
+<div class="section-title">Resumen ejecutivo — KPIs del proyecto</div>
+<div class="kpi-grid">
+  <div class="kpi-card c-gold"><div class="kpi-label">Total facturado (3 obras)</div><div class="kpi-value sm">798.179 €</div><div class="kpi-sub">6266: 790.211 € · 6338: 3.272 € · 6365: 4.696 €</div></div>
+  <div class="kpi-card c-blue"><div class="kpi-label">Coste total (3 obras)</div><div class="kpi-value sm">261.776 €</div><div class="kpi-sub">6266: 255.635 € · 6338: 1.587 € · 6365: 4.554 €</div></div>
+  <div class="kpi-card c-green"><div class="kpi-label">Margen bruto</div><div class="kpi-value sm">536.403 €</div><div class="kpi-sub">Margen ~67,2% sobre ventas</div></div>
+  <div class="kpi-card c-orange"><div class="kpi-label">Horas nominales totales</div><div class="kpi-value sm">~13.408 h</div><div class="kpi-sub">10.141 h adj. · 13.408 h reales (+32,2%)</div></div>
+  <div class="kpi-card c-red"><div class="kpi-label">Desviación horas (6266)</div><div class="kpi-value sm">+3.195 h</div><div class="kpi-sub">10.029 h prev. → 13.224 h reales (+31,9%)</div></div>
+  <div class="kpi-card c-orange"><div class="kpi-label">Rend. ponderado global</div><div class="kpi-value sm">76,7 %</div><div class="kpi-sub">DOST 60% reduce rendimiento global</div></div>
+  <div class="kpi-card c-red"><div class="kpi-label">Pérdida prod. DOST</div><div class="kpi-value sm">2.554 h</div><div class="kpi-sub">6.386 h nom. → 3.832 h prod. (60%)</div></div>
+  <div class="kpi-card c-blue"><div class="kpi-label">Duración total</div><div class="kpi-value sm">~210 d</div><div class="kpi-sub">17/11/2025 → Jun 2026 · 7 meses</div></div>
+</div>
+
+<!-- TABLA OBRAS -->
+<div class="section-title">Desglose por obras</div>
+<div class="card" style="overflow-x:auto;margin-bottom:16px">
+  <div class="card-title"><div class="dot" style="background:#2060a0"></div>Tabla de obras del proyecto</div>
+  <table class="data-table">
+    <thead>
+      <tr><th>Obra</th><th>Descripción</th><th>Estado</th><th>H. Previstas</th><th>H. Reales</th><th>Desviación</th><th>Coste Total</th><th>Facturado</th><th>Margen</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>6266</strong></td>
+        <td>AVALON.FULL PAINT — Hull + Superestructura · Topsides + Plataforma + Superestructura completa</td>
+        <td><span class="tag tag-orange">En cierre</span></td>
+        <td class="num">10.029 h</td>
+        <td class="num bad">13.224 h</td>
+        <td class="num bad">+3.195 h (+31,9%)</td>
+        <td class="num">255.635 €</td>
+        <td class="num good">790.211 €</td>
+        <td class="num good">534.576 €</td>
+      </tr>
+      <tr>
+        <td><strong>6338</strong></td>
+        <td>AVALON.CHAIN LOCKERS — Cajas de cadenas</td>
+        <td><span class="tag tag-green">Cerrada ✓</span></td>
+        <td class="num">46 h</td>
+        <td class="num good">46 h</td>
+        <td class="num good">0 h (0%)</td>
+        <td class="num">1.587 €</td>
+        <td class="num good">3.272 €</td>
+        <td class="num good">1.685 €</td>
+      </tr>
+      <tr>
+        <td><strong>6365</strong></td>
+        <td>AVALON.MASTS WORKS — Trabajos en mástiles</td>
+        <td><span class="tag tag-red">Cerrada — margen mínimo</span></td>
+        <td class="num">66 h</td>
+        <td class="num bad">138 h</td>
+        <td class="num bad">+72 h (+109%)</td>
+        <td class="num">4.554 €</td>
+        <td class="num warn">4.696 €</td>
+        <td class="num warn">142 €</td>
+      </tr>
+      <tr>
+        <td><strong>6455</strong></td>
+        <td>AVALON.TOUCH UPS — Control de horas interno</td>
+        <td><span class="tag tag-blue">Control interno</span></td>
+        <td class="num muted">—</td>
+        <td class="num">55 h</td>
+        <td class="num muted">—</td>
+        <td class="num muted">—</td>
+        <td class="num muted">—</td>
+        <td class="num muted">No facturado</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr><td><strong>TOTAL AVALON</strong></td><td></td><td><span class="tag tag-orange">En remates</span></td><td class="num"><strong>10.141 h</strong></td><td class="num bad"><strong>~13.408 h</strong></td><td class="num bad"><strong>+3.267 h (+32,2%)</strong></td><td class="num"><strong>261.776 €</strong></td><td class="num good"><strong>798.179 €</strong></td><td class="num good"><strong>536.403 €</strong></td></tr>
+    </tfoot>
+  </table>
+  <p class="muted" style="margin-top:8px;font-size:11px">Nota: Carta de aceptación pendiente — pendiente revisión final del barco. Obra 6455: control interno de horas (55 h), no facturada. Repetición popa incluida en obra 6266. Materiales no conciliados: 73.728 € (almacén) vs 118.662 € (compra directa) — pendiente unificación.</p>
+</div>
+
+<!-- TIMELINE + RENDIMIENTO -->
+<div class="grid-2">
+  <div class="card">
+    <div class="card-title"><div class="dot" style="background:#2060a0"></div>Timeline operativo</div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-date">17/11/2025</div><div class="tl-body">Inicio con BALEOS (4 pax): retirada Sika y pintura existente. Sandblasting plataforma popa → incidencia cabina pequeña → zona mecánica P16. Primer 161 aplicado.</div></div>
+      <div class="tl-item"><div class="tl-date">01–05/12/2025</div><div class="tl-body"><strong>Inicio planificación formal.</strong> 10 pax. Limpieza integral, QC inicial, identificación corrosiones y grietas fibra (reparaciones TMC).</div></div>
+      <div class="tl-item"><div class="tl-date">Dic 25 → Ene 26</div><div class="tl-body">Saneo, masillas Super Fair 202 / Fine Filler 303 / Super Build 302. Primer 442 mástil, sun deck, bridge deck. Paradas por viento (28/01, 31/01).</div></div>
+      <div class="tl-item"><div class="tl-date">Feb 2026</div><div class="tl-body">Fairing general. Paradas climáticas 12–14/02. <strong>15/02/2026: Juan Galmés asume como PM</strong> en sustitución de Cristian Liébana. Full Primer 442 topsides (28/02).</div></div>
+      <div class="tl-item"><div class="tl-date">4–11/03/2026</div><div class="tl-body"><strong class="bad">Lluvias persistentes — entradas masivas de agua.</strong> Topcoat aplazado del 12 al 19/03. Retraso estimado 1,5–2 semanas. Port Denia informado.</div></div>
+      <div class="tl-item"><div class="tl-date">19/03/2026</div><div class="tl-body"><strong class="acc">Topcoat azul (Flag Blue H5153) en topsides.</strong> Resultado muy satisfactorio. HS Clear H0150 — 1ª aplicación.</div></div>
+      <div class="tl-item"><div class="tl-date">18–29/04/2026</div><div class="tl-body">18/04: Superjet Black casas (X9232). 23/04: 1ª blancos superestructura (X9123). 29/04: 2ª blancos. Re-trabajos QC.</div></div>
+      <div class="tl-item"><div class="tl-date">01–11/05/2026</div><div class="tl-body">Re-clear Premium 501 T0125 (04/05, aplazado por clima). Non-skid (07/05). Repeticiones arco radar y popa. Visita Wrede + QC Nautipaints.</div></div>
+      <div class="tl-item"><div class="tl-date">18–29/05/2026</div><div class="tl-body">Visita Wrede 18/05: snag list + 8 nuevos puntos. Repetición popa central + lomo estribor programada 4–7/06. ~80–90% snag list completado.</div></div>
+      <div class="tl-item"><div class="tl-date">4–7/06/2026</div><div class="tl-body"><strong class="acc">Repetición popa ejecutada ✓</strong> — pendiente revisión una vez limpio el barco. Touch-ups generados por montajes Port Denia pendientes de cuantificación.</div></div>
+    </div>
+  </div>
+
+  <div>
+    <div class="card" style="margin-bottom:14px">
+      <div class="card-title"><div class="dot" style="background:#2060a0"></div>Datos económicos</div>
+      <table class="data-table">
+        <tbody>
+          <tr><td>Facturado 6266 (Full Paint)</td><td class="num gold"><strong>790.211 €</strong></td></tr>
+          <tr><td>Facturado 6338 (Chain Locker)</td><td class="num good">3.272 €</td></tr>
+          <tr><td>Facturado 6365 (Masts)</td><td class="num warn">4.696 €</td></tr>
+          <tr><td><strong>Total facturado</strong></td><td class="num gold"><strong>798.179 €</strong></td></tr>
+          <tr><td>Coste total (3 obras)</td><td class="num">261.776 €</td></tr>
+          <tr><td>Margen bruto</td><td class="num good">536.403 €</td></tr>
+          <tr><td>Horas previstas (6266)</td><td class="num">10.029 h</td></tr>
+          <tr><td>Horas reales (6266)</td><td class="num bad">13.224 h (+31,9%)</td></tr>
+          <tr><td>Coste €/h productiva — DOST</td><td class="num bad">55,0 €/h (67% más caro que NP)</td></tr>
+          <tr><td>Coste €/h productiva — OLIMPOS</td><td class="num good">33,0 €/h</td></tr>
+          <tr><td>Coste €/h productiva — NP</td><td class="num good">32,4 €/h</td></tr>
+          <tr><td>Materiales (almacén / compra directa)</td><td class="num warn">73.728 € / 118.662 € — pendiente conciliación</td></tr>
+          <tr><td>Carta de aceptación</td><td class="num bad">Pendiente ✗ — revisión final pendiente</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="dot" style="background:#2060a0"></div>Rendimiento por empresa</div>
+      <div class="emp-row">
+        <div class="emp-name"><span class="tag tag-orange">993 DOST</span></div>
+        <div class="emp-bar-wrap">
+          <div class="prog-label"><span>6.386 h nom. → 3.832 h prod. · 210.738 € · 55 €/h prod.</span><span class="bad">60%</span></div>
+          <div class="prog-bar"><div class="prog-fill pf-orange" style="width:60%"></div></div>
+        </div>
+      </div>
+      <div class="emp-row">
+        <div class="emp-name"><span class="tag tag-green">991 OLIMPOS</span></div>
+        <div class="emp-bar-wrap">
+          <div class="prog-label"><span>2.579 h → 100% · 85.107 € · 33 €/h prod.</span><span class="good">100%</span></div>
+          <div class="prog-bar"><div class="prog-fill pf-green" style="width:100%"></div></div>
+        </div>
+      </div>
+      <div class="emp-row">
+        <div class="emp-name"><span class="tag tag-blue">Nautipaints</span></div>
+        <div class="emp-bar-wrap">
+          <div class="prog-label"><span>4.734 h → 100% · 153.234 € · 32,4 €/h prod.</span><span class="good">100%</span></div>
+          <div class="prog-bar"><div class="prog-fill pf-blue" style="width:100%"></div></div>
+        </div>
+      </div>
+      <div style="margin-top:10px;padding:10px;background:#fff5ea;border-radius:8px;font-size:11px;border:1px solid #f0c890">
+        Rendimiento ponderado global: <strong class="warn">76,7%</strong> · Pérdida productiva DOST: <strong class="bad">2.554 h</strong><br>
+        DOST al 60% es <strong class="bad">67% más caro</strong> por hora productiva que Olimpos o Nautipaints.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INCIDENCIAS -->
+<div class="section-title">Incidencias relevantes</div>
+<div class="notice notice-red">
+  <span style="font-size:18px">⚠️</span>
+  <div><strong>Ampliaciones no planificadas.</strong> A lo largo del proyecto se incorporaron trabajos adicionales en mitad de procesos — documentados parcialmente en Daily Reports y fotografías. Su impacto acumulado se estima en <strong class="bad">2–4 semanas de retraso</strong>. No están recogidos en ninguna planificación formal — dificultan cuantificación exacta. Para próxima temporada: formalizar todo cambio de alcance con flash report.</div>
+</div>
+<div class="notice notice-orange">
+  <span style="font-size:18px">🌬️</span>
+  <div><strong>Impacto climático — Port Denia.</strong> Lluvias persistentes 4–11/03 → entradas masivas de agua → topcoat aplazado 1,5–2 semanas. Re-clear aplazado 04/05 por clima. Estimación: <strong class="bad">10+ días perdidos</strong> por condiciones meteorológicas. Buffer climático insuficiente en planificación inicial.</div>
+</div>
+<div class="notice notice-blue">
+  <span style="font-size:18px">ℹ️</span>
+  <div><strong>Snag list Wrede (visita 18/05/2026).</strong> 8 nuevos puntos añadidos. ~80–90% del snag list completado al 05/06/2026. Repetición popa central ejecutada 4–7/06. <strong>Pendiente: carta de aceptación definitiva una vez revisado el barco limpio.</strong></div>
+</div>
+
+<!-- GRÁFICAS -->
+<div class="section-title">Análisis gráfico</div>
+<div class="grid-2">
+  <div class="card">
+    <div class="card-title">Horas nominales vs productivas por empresa</div>
+    <div class="chart-wrap"><canvas id="chartHoras" height="240"></canvas></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Facturación vs Coste por obra</div>
+    <div class="chart-wrap"><canvas id="chartObras" height="240"></canvas></div>
+  </div>
+</div>
+
+<!-- SISTEMA PINTURA -->
+<div class="section-title">Sistema de pintura — ALEXSEAL Yacht Coatings (Mankiewicz) · PSR V2 · 20/11/2025</div>
+<div class="grid-2">
+  <div>
+    <div class="paint-system">
+      <div class="paint-system-header ps-alexseal">EXTERIOR — Hull (Acero) · Prime &amp; Shoot · Base Coat / Clear Coat</div>
+      <div class="paint-zone">
+        <div class="paint-zone-name">Áreas corrosión y reparación (Acero y Aluminio)</div>
+        <div class="paint-layer"><div class="layer-num">1</div><div class="layer-product">Protective Primer 161 <span class="layer-ref">R4042</span></div><div class="layer-color">WFT 300µm · DFT 135µm · mín 90µm</div></div>
+        <div class="paint-layer"><div class="layer-num">2</div><div class="layer-product">Super Fair 202 — masilla gruesa</div><div class="layer-color">Máx. 5mm/capa · P40–P60 entre capas</div></div>
+        <div class="paint-layer"><div class="layer-num">3</div><div class="layer-product">Fine Filler 303 — masilla fina</div><div class="layer-color">Máx. 0,5mm/capa · P100–P120</div></div>
+        <div class="paint-layer"><div class="layer-num">4</div><div class="layer-product">Super Build 302 <span class="layer-ref">R3040</span></div><div class="layer-color">WFT 450µm · DFT 250µm · mín 100µm</div></div>
+      </div>
+      <div class="paint-zone">
+        <div class="paint-zone-name">Hull Topsides (Acero) · Prime &amp; Shoot</div>
+        <div class="paint-layer"><div class="layer-num">1</div><div class="layer-product">Finish Primer 442 <span class="layer-ref">R4042/R4032/R5015</span></div><div class="layer-color">WFT 250µm · DFT 100µm · mín 50µm</div></div>
+        <div class="paint-layer"><div class="layer-num">2</div><div class="layer-product">HS Base Coat H5153 <span class="layer-ref">R5521/R5541</span></div><div class="layer-color" style="background:#1a3a8c;color:#fff">FLAG BLUE · WFT 75µm · DFT 50µm</div></div>
+        <div class="paint-layer"><div class="layer-num">3</div><div class="layer-product">HS Clear Coat H0150 — 1ª aplic. <span class="layer-ref">R5531/R5561</span></div><div class="layer-color">WFT 150µm · DFT 75µm · mín 20µm</div></div>
+        <div class="paint-layer"><div class="layer-num">4</div><div class="layer-product">Premium Topcoat 501 T0125 — 2ª aplic. <span class="layer-ref">R5050/R5030</span></div><div class="layer-color">Clear Gloss · WFT 150µm · DFT 50µm</div></div>
+      </div>
+      <div class="paint-zone">
+        <div class="paint-zone-name">Waterline (Acero) · Prime &amp; Shoot</div>
+        <div class="paint-layer"><div class="layer-num">1</div><div class="layer-product">Finish Primer 442 <span class="layer-ref">R4042/R4032/R5015</span></div><div class="layer-color">WFT 250µm · DFT 100µm</div></div>
+        <div class="paint-layer"><div class="layer-num">2</div><div class="layer-product">HS Base Coat H9123 / H3153 <span class="layer-ref">R5521/R5541</span></div><div class="layer-color" style="background:#f0f0e8;color:#333">MATTERHORN WHITE / VIVID RED</div></div>
+        <div class="paint-layer"><div class="layer-num">3+4</div><div class="layer-product">HS Clear H0150 + Premium Topcoat 501 T0125</div><div class="layer-color">Clear Gloss — 2 aplicaciones</div></div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="paint-system">
+      <div class="paint-system-header ps-alexseal">SUPERESTRUCTURA (Aluminio) + PLATAFORMA DE BAÑO (Acero)</div>
+      <div class="paint-zone">
+        <div class="paint-zone-name">Superestructura (Aluminio) · Solid Colors</div>
+        <div class="paint-layer"><div class="layer-num">1</div><div class="layer-product">Finish Primer 442 <span class="layer-ref">R4042/R4032/R5015</span></div><div class="layer-color">WFT 250µm · DFT 100µm · mín 50µm</div></div>
+        <div class="paint-layer"><div class="layer-num">2</div><div class="layer-product">Acrylic Topcoat X · X9123 <span class="layer-ref">R5101/R5102/R5103</span></div><div class="layer-color" style="background:#f0f0e8;color:#333">MATTERHORN WHITE · WFT 100µm · DFT 50µm</div></div>
+        <div class="paint-layer"><div class="layer-num">2b</div><div class="layer-product">Acrylic Topcoat X · X9232 <span class="layer-ref">R5101/R5102/R5103</span></div><div class="layer-color" style="background:#111;color:#fff">SUPER JET BLACK · WFT 100µm · DFT 50µm</div></div>
+      </div>
+      <div class="paint-zone">
+        <div class="paint-zone-name">Plataforma de baño (Acero) · Base Coat / Clear Coat</div>
+        <div class="paint-layer"><div class="layer-num">1</div><div class="layer-product">Protective Primer 161 <span class="layer-ref">R4042</span></div><div class="layer-color">WFT 300µm · DFT 135µm · mín 90µm</div></div>
+        <div class="paint-layer"><div class="layer-num">2</div><div class="layer-product">Fairing Compound 202 + Fine Filler 303 + Super Build 302</div><div class="layer-color">Masillas según necesidad</div></div>
+        <div class="paint-layer"><div class="layer-num">3</div><div class="layer-product">Finish Primer 442</div><div class="layer-color">WFT 250µm · DFT 100µm</div></div>
+        <div class="paint-layer"><div class="layer-num">4</div><div class="layer-product">HS Base Coat H5153 <span class="layer-ref">R5521</span></div><div class="layer-color" style="background:#1a3a8c;color:#fff">FLAG BLUE</div></div>
+        <div class="paint-layer"><div class="layer-num">5+6</div><div class="layer-product">HS Clear H0150 + Premium Topcoat 501 T0125</div><div class="layer-color">Clear Gloss — 2 aplicaciones</div></div>
+      </div>
+      <div class="paint-zone" style="background:#f8fbfe">
+        <div class="paint-zone-name">Condiciones de aplicación (Port Denia)</div>
+        <div style="font-size:11px;color:var(--text);line-height:1.7">
+          HR óptima: <strong>40–70%</strong> · Temperatura: <strong>17–30°C</strong> (rango permitido 15–35°C)<br>
+          Curado recomendado: <strong>7–10 días</strong> a 17–30°C · Lijado P320 DA tras curado Primer 442<br>
+          Limpieza: Degreaser A9091 → Wipe Down Solvent A9049 (método dos trapos)<br>
+          Guide Coat A4001 tras curado Finish Primer 442 · Flash-off mín. 2h antes de aplicación<br>
+          <strong>Garantía:</strong> condicionada a presentación del Paint Application Protocol (mantener 2 años)
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PENDIENTES -->
+<div class="section-title">Acciones pendientes de cierre</div>
+<div class="card">
+  <table class="data-table">
+    <thead><tr><th>Prioridad</th><th>Acción</th><th>Estado actual</th><th>Responsable</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag tag-red">🔴 URGENTE</span></td><td>Revisión zona popa tras repetición 4–7/06</td><td class="warn">Pendiente — barco limpio</td><td>Juan Galmés + Wrede</td></tr>
+      <tr><td><span class="tag tag-red">🔴 URGENTE</span></td><td>Carta de aceptación definitiva</td><td class="bad">No firmada</td><td>Capitán + Wrede</td></tr>
+      <tr><td><span class="tag tag-orange">🟠 MEDIA</span></td><td>Snag list definitivo — puntos pendientes (~10–20%)</td><td class="warn">En proceso</td><td>Juan Galmés</td></tr>
+      <tr><td><span class="tag tag-orange">🟠 MEDIA</span></td><td>Conciliación materiales (73.728 € vs 118.662 €)</td><td class="warn">Sin resolver</td><td>Administración NP</td></tr>
+      <tr><td><span class="tag tag-orange">🟠 MEDIA</span></td><td>Touch-ups Port Denia — cuantificación y facturación</td><td class="warn">Sin cuantificar</td><td>Juan Galmés</td></tr>
+      <tr><td><span class="tag tag-gold">🟡 BAJA</span></td><td>Formalización ampliaciones (cambio de alcance 2–4 sem.)</td><td class="muted">Sin documentar formalmente</td><td>Juan Galmés / PM</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</main>
+<footer>NAUTIPAINTS · Informe Proyecto AVALON · M/Y Avalon 101 · 46 m · Refs. P-6266 / 6338 / 6365 / 6455 · Port Denia · PM Juan Galmés (desde 15/02/2026) · Temporada 2025-2026 · Generado 16/06/2026</footer>
+
+<script>
+const ACCENT='#1a9fd4',GOLD='#c99b22',GREEN='#1e9e55',RED='#d43333',ORANGE='#d4721a',PURPLE='#8b3fad';
+const gridOpts={color:'rgba(212,230,240,.6)'};
+const ttpOpts={backgroundColor:'#fff',borderColor:'#d4e6f0',borderWidth:1,titleColor:'#1a2636',bodyColor:'#1a2636',padding:12};
+const bFont={family:"'Helvetica Neue',Arial,sans-serif",size:12};
+
+new Chart(document.getElementById('chartHoras'),{
+  type:'bar',
+  data:{
+    labels:['993 DOST','991 OLIMPOS','Nautipaints'],
+    datasets:[
+      {label:'Horas nominales',data:[6386,2579,4734],backgroundColor:'rgba(26,159,212,.3)',borderColor:ACCENT,borderWidth:2,borderRadius:5},
+      {label:'Horas productivas equiv.',data:[3832,2579,4734],backgroundColor:['rgba(212,114,26,.75)','rgba(30,158,85,.75)','rgba(26,159,212,.75)'],borderColor:[ORANGE,GREEN,ACCENT],borderWidth:2,borderRadius:5}
+    ]
+  },
+  options:{responsive:true,plugins:{legend:{labels:{color:'#1a2636',font:bFont}},tooltip:{...ttpOpts,callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.y.toLocaleString('es-ES')} h`}}},
+  scales:{x:{ticks:{color:'#5a7a8e',font:bFont},grid:gridOpts},y:{ticks:{color:'#5a7a8e'},grid:gridOpts,title:{display:true,text:'Horas',color:'#5a7a8e'}}}}
+});
+
+new Chart(document.getElementById('chartObras'),{
+  type:'bar',
+  data:{
+    labels:['6266 Full Paint','6338 Chain Locker','6365 Masts'],
+    datasets:[
+      {label:'Coste',data:[255635,1587,4554],backgroundColor:'rgba(212,114,26,.5)',borderColor:ORANGE,borderWidth:2,borderRadius:5},
+      {label:'Facturado',data:[790211,3272,4696],backgroundColor:'rgba(30,158,85,.6)',borderColor:GREEN,borderWidth:2,borderRadius:5}
+    ]
+  },
+  options:{responsive:true,plugins:{legend:{labels:{color:'#1a2636',font:bFont}},tooltip:{...ttpOpts,callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.y.toLocaleString('es-ES',{minimumFractionDigits:0})} €`}}},
+  scales:{x:{ticks:{color:'#5a7a8e',font:bFont},grid:gridOpts},y:{ticks:{color:'#5a7a8e',callback:v=>v>=1000?(v/1000).toFixed(0)+'K':v},grid:gridOpts,title:{display:true,text:'Euros',color:'#5a7a8e'}}}}
+});
+</script>
+</body>
+</html>

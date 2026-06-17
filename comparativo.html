@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INFORME COMPARATIVO — TEMPORADA 2025-2026 · NAUTIPAINTS</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --navy:#0b1e2d;--gold:#c99b22;--gold2:#e8b930;--blue:#1e7fb5;--accent:#1a9fd4;
+  --green:#1e9e55;--red:#d43333;--orange:#d4721a;--purple:#8b3fad;
+  --card:#ffffff;--border:#d4e6f0;--text:#1a2636;--muted:#5a7a8e;--bg:#f0f6fa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Source Sans 3','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+header{background:linear-gradient(135deg,#2d0a0a 0%,#4a1010 60%,#7a1a1a 100%);color:#fff;padding:32px 40px 28px;border-bottom:4px solid var(--gold);position:relative;overflow:hidden}
+header::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
+.header-inner{display:flex;align-items:flex-start;gap:28px;position:relative;z-index:1}
+.anchor-icon{font-size:52px;line-height:1}
+.header-text{flex:1}
+.header-season{font-size:11px;letter-spacing:3px;color:var(--gold2);text-transform:uppercase;margin-bottom:6px;font-weight:700}
+.header-title{font-size:30px;font-weight:800;letter-spacing:1px;line-height:1.15}
+.header-title span{color:var(--gold2)}
+.header-sub{font-size:13px;color:rgba(255,255,255,.6);margin-top:5px}
+.header-badges{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.badge{padding:5px 14px;border-radius:20px;font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase}
+.badge-blue{background:rgba(26,159,212,.25);border:1px solid var(--accent);color:#9dd8f5}
+.badge-gold{background:rgba(201,155,34,.25);border:1px solid var(--gold);color:var(--gold2)}
+.badge-green{background:rgba(30,158,85,.25);border:1px solid var(--green);color:#7de4a3}
+.badge-orange{background:rgba(212,114,26,.25);border:1px solid var(--orange);color:#f5b066}
+main{padding:28px 36px 56px;max-width:1480px;margin:0 auto}
+.section-title{font-size:13px;font-weight:800;letter-spacing:2.5px;color:var(--accent);text-transform:uppercase;margin:36px 0 16px;display:flex;align-items:center;gap:10px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+.section-title::before{content:'';display:inline-block;width:4px;height:18px;background:var(--gold);border-radius:2px;flex-shrink:0}
+.notice{border-radius:10px;padding:14px 18px;margin-bottom:20px;display:flex;gap:14px;align-items:flex-start;font-size:13px}
+.notice-blue{background:#e8f5fb;border:1px solid #a8d8ee}
+.notice-orange{background:#fff5ea;border:1px solid #f0c890}
+.notice-red{background:#fff0ee;border:1px solid #f0b8b0}
+.notice-green{background:#edfaf2;border:1px solid #90dbb0}
+.notice-purple{background:#f5f0fc;border:1px solid #c8a8e8}
+.notice strong{color:var(--text)}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:6px}
+.kpi-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;position:relative;overflow:hidden}
+.kpi-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.kpi-card.c-blue::after{background:var(--accent)}.kpi-card.c-gold::after{background:var(--gold)}
+.kpi-card.c-green::after{background:var(--green)}.kpi-card.c-red::after{background:var(--red)}
+.kpi-card.c-orange::after{background:var(--orange)}.kpi-card.c-purple::after{background:var(--purple)}
+.kpi-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:7px;font-weight:700}
+.kpi-value{font-size:24px;font-weight:900;color:var(--text);line-height:1}
+.kpi-value.sm{font-size:19px}
+.kpi-sub{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:18px}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.grid-4{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 22px;overflow:hidden}
+.card-title{font-size:12px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.card-title .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.proj-card{border-radius:16px;padding:22px 24px;color:#fff;position:relative;overflow:hidden}
+.proj-card::before{content:'';position:absolute;top:-20px;right:-20px;width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,.07)}
+.proj-avalon{background:linear-gradient(135deg,#1a3d5c,#2060a0)}
+.proj-lamm{background:linear-gradient(135deg,#2d1a0e,#7a3d15)}
+.proj-thanuja{background:linear-gradient(135deg,#0e2d1a,#1a7a3d)}
+.proj-sea{background:linear-gradient(135deg,#1a0e2d,#4a1a7a)}
+.proj-name{font-size:22px;font-weight:900;letter-spacing:1px}
+.proj-ref{font-size:11px;opacity:.7;margin-top:3px;letter-spacing:.8px}
+.proj-loc{font-size:11px;opacity:.85;margin-top:6px}
+.proj-period{font-size:12px;font-weight:700;opacity:.9;margin-top:8px;display:flex;align-items:center;gap:6px}
+.proj-period-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.7);flex-shrink:0}
+.data-table{width:100%;border-collapse:collapse;font-size:12px}
+.data-table th{background:#eaf5fa;color:var(--accent);font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:9px 12px;text-align:left;border-bottom:2px solid var(--border)}
+.data-table td{padding:8px 12px;border-bottom:1px solid #e8eff5;vertical-align:top}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:#f5fbfe}
+.data-table tfoot td{font-weight:800;background:#f0f8fc;border-top:2px solid var(--border)}
+.num{text-align:right;font-weight:700}
+.tag{display:inline-block;padding:2px 8px;border-radius:8px;font-size:10px;font-weight:800}
+.tag-blue{background:#daeef8;color:#1463a0}.tag-green{background:#daf4e7;color:#145c30}
+.tag-orange{background:#fef0de;color:#8c4a10}.tag-red{background:#fee8e6;color:#8c1a1a}
+.tag-purple{background:#f0e8f8;color:#5a1a8c}.tag-gold{background:#fef7e0;color:#7a5c00}
+.good{color:var(--green)!important;font-weight:700}.bad{color:var(--red)!important;font-weight:700}
+.warn{color:var(--orange)!important;font-weight:700}.gold{color:var(--gold)!important}
+.acc{color:var(--accent)!important}.muted{color:var(--muted)}
+.prog-label{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:5px;margin-top:10px;font-weight:600}
+.prog-bar{height:8px;background:#e4eff5;border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;border-radius:4px}
+.pf-green{background:linear-gradient(90deg,#14753e,var(--green))}.pf-orange{background:linear-gradient(90deg,#a04010,var(--orange))}
+.pf-red{background:linear-gradient(90deg,#8c1a1a,var(--red))}.pf-blue{background:linear-gradient(90deg,#0e4a7a,var(--accent))}
+.pf-purple{background:linear-gradient(90deg,#5a1a8c,var(--purple))}
+.emp-row{display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid var(--border);font-size:12px}
+.emp-row:last-child{border-bottom:none}
+.emp-name{width:170px;font-weight:700}
+.emp-bar-wrap{flex:1}
+.comp-table{width:100%;border-collapse:collapse;font-size:12px}
+.comp-table th{padding:10px 14px;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);border-bottom:2px solid var(--border);text-align:left}
+.comp-table td{padding:10px 14px;border-bottom:1px solid #e8eff5;vertical-align:middle}
+.proj-cell{font-weight:800;font-size:13px;display:flex;align-items:center;gap:8px}
+.proj-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.dot-avalon{background:#2060a0}.dot-lamm{background:#c05010}.dot-thanuja{background:#1a8c45}.dot-sea{background:#6a20c0}
+.chart-wrap{position:relative;min-height:200px}
+.rend-badge{display:inline-block;padding:3px 10px;border-radius:10px;font-size:11px;font-weight:800}
+.rend-100{background:#daf4e7;color:#145c30}.rend-60{background:#fef0de;color:#8c4a10}
+footer{text-align:center;padding:20px;color:var(--muted);font-size:11px;border-top:2px solid var(--border);background:var(--card);margin-top:8px;letter-spacing:.5px}
+@media print{body{background:#fff}.card,.kpi-card{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <div class="anchor-icon">⚓</div>
+    <div class="header-text">
+      <div class="header-season">Nautipaints · Port Denia + Freire Vigo · Temporada 2025-2026</div>
+      <div class="header-title">INFORME COMPARATIVO <span>MULTI-PROYECTO</span></div>
+      <div class="header-sub">SEABISCUIT · AVALON · LAMMOUCHE · THANUJA · Sistemas de pintura completos · Análisis de rendimiento por empresa · PM: Juan Galmés · Generado 16/06/2026</div>
+      <div class="header-badges">
+        <span class="badge badge-blue">4 Proyectos</span>
+        <span class="badge badge-gold">Awlgrip · Alexseal · Boero</span>
+        <span class="badge badge-green">Vigo + Port Denia</span>
+        <span class="badge badge-orange">Rendimiento ajustado por empresa</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- CONTEXTO -->
+<div class="notice notice-blue" style="margin-top:24px">
+  <span style="font-size:22px">ℹ️</span>
+  <div><strong>Contexto de temporada.</strong> La temporada se inició con el <strong>SEABISCUIT</strong> en el astillero Freire (Vigo), proyecto dirigido directamente por Juan Galmés. Una vez finalizado, se trasladó a Port Denia, donde asumió la gestión de <strong>AVALON, LAMMOUCHE y THANUJA</strong> a partir del <strong>14 de febrero de 2026</strong>, en sustitución de la anterior Project Manager Cristian Liébana.</div>
+</div>
+<div class="notice notice-orange">
+  <span style="font-size:18px">⚠️</span>
+  <div><strong>Criterios de rendimiento aplicados — confirmados por Dirección.</strong>
+    <strong>993 DOST:</strong> <span class="rend-60 rend-badge">60 %</span>&nbsp;
+    <strong>991 OLIMPOS:</strong> <span class="rend-100 rend-badge">100 %</span>&nbsp;
+    <strong>992 CONSTRUCTION LINE:</strong> <span class="rend-badge" style="background:#fee8e6;color:#8c1a1a">50–40 % general / 20 % últimos 3 días Lammouche</span>&nbsp;
+    <strong>Resto Nautipaints:</strong> <span class="rend-100 rend-badge">100 %</span>
+  </div>
+</div>
+
+<!-- FICHAS PROYECTO -->
+<div class="section-title">Ficha de cada proyecto</div>
+<div class="grid-4">
+  <div class="proj-card proj-sea">
+    <div class="proj-name">SEABISCUIT</div>
+    <div class="proj-ref">Refs. 6256 / 6298 / 6307 / 6332 · S/Y Seabiscuit</div>
+    <div class="proj-loc">📍 Freire Shipyard, Vigo · LOA 41,83 m · Holland Jachtbouw</div>
+    <div class="proj-period"><div class="proj-period-dot"></div>Dic 2025 → Feb 2026 · 1er proyecto temporada</div>
+  </div>
+  <div class="proj-card proj-avalon">
+    <div class="proj-name">AVALON</div>
+    <div class="proj-ref">Ref. P-6266 · Obra 6266 + 6338 + 6365 + 6455 · M/Y Avalon 101 · 46 m</div>
+    <div class="proj-loc">📍 Port Denia — Hull, Superestructura, Mástil</div>
+    <div class="proj-period"><div class="proj-period-dot"></div>17/11/2025 → Jun 2026 (en remates)</div>
+  </div>
+  <div class="proj-card proj-lamm">
+    <div class="proj-name">LAMMOUCHE</div>
+    <div class="proj-ref">Ref. P-6339 · Obras 6339/6351/6359/6390/6398 · M/Y Lammouche</div>
+    <div class="proj-loc">📍 Port Denia — Hull + zonas superest. (con cortes CCS)</div>
+    <div class="proj-period"><div class="proj-period-dot"></div>16/01/2026 → 20/04/2026 (cerrado)</div>
+  </div>
+  <div class="proj-card proj-thanuja">
+    <div class="proj-name">THANUJA</div>
+    <div class="proj-ref">Ref. P-6344 · M/Y Thanuja · 49,9 m · Concept Yachts (Turquía 2011)</div>
+    <div class="proj-loc">📍 Port Denia — Hull Topsides Bow Area · 72 m²</div>
+    <div class="proj-period"><div class="proj-period-dot"></div>02/03/2026 → 14/04/2026 (cerrado)</div>
+  </div>
+</div>
+
+<!-- KPIs GLOBALES -->
+<div class="section-title">Resumen ejecutivo — KPIs globales de temporada</div>
+<div class="kpi-grid">
+  <div class="kpi-card c-blue"><div class="kpi-label">Proyectos gestionados</div><div class="kpi-value">4</div><div class="kpi-sub">1 Vigo (Freire) + 3 Port Denia</div></div>
+  <div class="kpi-card c-gold"><div class="kpi-label">Facturación AVALON (4 obras)</div><div class="kpi-value sm">798.179 €</div><div class="kpi-sub">Proyecto dominante de la temporada</div></div>
+  <div class="kpi-card c-green"><div class="kpi-label">Facturación SEABISCUIT (6256)</div><div class="kpi-value sm">157.847 €</div><div class="kpi-sub">Margen 75,4% — resultado excelente</div></div>
+  <div class="kpi-card c-orange"><div class="kpi-label">Facturación LAMMOUCHE</div><div class="kpi-value sm">155.330 €</div><div class="kpi-sub">P-6339 · full paint zonas con cortes</div></div>
+  <div class="kpi-card c-green"><div class="kpi-label">Facturación THANUJA</div><div class="kpi-value sm">46.368 €</div><div class="kpi-sub">Margen 97,5% — mejor ratio temporada</div></div>
+  <div class="kpi-card c-red"><div class="kpi-label">Pérdida productiva DOST (AVALON)</div><div class="kpi-value sm">2.554 h</div><div class="kpi-sub">6.386 h nom. al 60% = 2.554 h perdidas</div></div>
+  <div class="kpi-card c-orange"><div class="kpi-label">Desviación horas AVALON</div><div class="kpi-value sm">+27 %</div><div class="kpi-sub">10.029 h prev. → 12.716 h reales</div></div>
+  <div class="kpi-card c-purple"><div class="kpi-label">Coste DOST vs NP/OLIMPOS</div><div class="kpi-value sm">55 €/h</div><div class="kpi-sub">67% más caro que NP (32,4€/h) o Olimpos (33€/h)</div></div>
+</div>
+
+<!-- COMPARATIVA PROYECTOS -->
+<div class="section-title">Comparativa entre proyectos</div>
+<div class="card" style="overflow-x:auto;margin-bottom:16px">
+  <div class="card-title">Tabla comparativa global</div>
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th>Proyecto</th><th>Período</th><th>Sistema pintura</th><th>H. Adjudicadas</th><th>H. Reales</th><th>Desviación</th><th>Facturado</th><th>Rend. pond.</th><th>Estado</th><th>Incidencias clave</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="proj-cell"><div class="proj-dot dot-sea"></div><strong>SEABISCUIT</strong></div></td>
+        <td>Dic 25 → Feb 26</td>
+        <td>Awlgrip (Akzo Nobel)</td>
+        <td>2.245 h</td>
+        <td class="good">1.107 h</td>
+        <td class="good">–50,7%</td>
+        <td class="good">157.847 €</td>
+        <td class="good">100% (NP)</td>
+        <td><span class="tag tag-green">Cerrado ✓</span></td>
+        <td>Coord. directa Vigo · Freire · Awlgrip completo · Astillero cubierto</td>
+      </tr>
+      <tr>
+        <td><div class="proj-cell"><div class="proj-dot dot-avalon"></div><strong>AVALON</strong></div></td>
+        <td>Nov 25 → Jun 26</td>
+        <td>Alexseal (Mankiewicz)</td>
+        <td>10.141 h</td>
+        <td class="bad">~12.900 h</td>
+        <td class="bad">+27%</td>
+        <td class="good">798.179 €</td>
+        <td class="warn">76,7%</td>
+        <td><span class="tag tag-orange">En remates</span></td>
+        <td>DOST 60% · lluvias Mar · ampliaciones 2–4 sem. · cambio PM Feb</td>
+      </tr>
+      <tr>
+        <td><div class="proj-cell"><div class="proj-dot dot-lamm"></div><strong>LAMMOUCHE</strong></div></td>
+        <td>Ene 26 → 20/04/26</td>
+        <td>Boero YachtCoatings</td>
+        <td>2.203 h</td>
+        <td class="warn">2.200+ h + obra 6398</td>
+        <td class="warn">≈0% + refuerzo</td>
+        <td class="good">155.330 €</td>
+        <td class="warn">~70% est.</td>
+        <td><span class="tag tag-green">Cerrado ✓</span></td>
+        <td>Viento · lluvias · Constr.Line 20% · obra admin CEO · tracks tardíos</td>
+      </tr>
+      <tr>
+        <td><div class="proj-cell"><div class="proj-dot dot-thanuja"></div><strong>THANUJA</strong></div></td>
+        <td>02/03 → 14/04/26</td>
+        <td>Boero YachtCoatings</td>
+        <td>2.203 h</td>
+        <td class="good">35 h</td>
+        <td class="good">–98,4%</td>
+        <td class="good">46.368 €</td>
+        <td class="warn">~75% est.</td>
+        <td><span class="tag tag-green">Cerrado ✓</span></td>
+        <td>Bolsas aire extra · cambio personal · color crítico gris → Boero</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- GRÁFICAS -->
+<div class="grid-2">
+  <div class="card">
+    <div class="card-title">Horas nominales vs productivas equivalentes</div>
+    <div class="chart-wrap"><canvas id="chartHorasComp" height="240"></canvas></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Rendimiento por empresa — global temporada</div>
+    <div class="chart-wrap"><canvas id="chartRendComp" height="240"></canvas></div>
+  </div>
+</div>
+
+<div class="grid-3" style="margin-top:16px">
+  <div class="card">
+    <div class="card-title">⏳ Duración y dimensiones</div>
+    <table class="data-table">
+      <thead><tr><th>Proyecto</th><th>Días</th><th>m² / LOA</th><th>Sistema</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag tag-purple">SEABISCUIT</span></td><td class="num">~65</td><td class="num">LOA 41,83 m</td><td>Awlgrip</td></tr>
+        <tr><td><span class="tag tag-blue">AVALON</span></td><td class="num">~210</td><td class="num">LOA 46 m</td><td>Alexseal</td></tr>
+        <tr><td><span class="tag tag-orange">LAMMOUCHE</span></td><td class="num">95+</td><td class="num">287 m² · 6,91 h/m²</td><td>Boero</td></tr>
+        <tr><td><span class="tag tag-green">THANUJA</span></td><td class="num">43</td><td class="num">72 m² (proa)</td><td>Boero</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card">
+    <div class="card-title">🌬️ Impacto climático (Port Denia)</div>
+    <table class="data-table">
+      <thead><tr><th>Proyecto</th><th>Días perdidos</th><th>Efecto</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag tag-blue">AVALON</span></td><td class="bad">10+ días</td><td>Topcoat 12→19/03, re-clear aplazado 04/05</td></tr>
+        <tr><td><span class="tag tag-orange">LAMMOUCHE</span></td><td class="bad">8+ días</td><td>Masillas mojadas → rehacer, botadura en riesgo</td></tr>
+        <tr><td><span class="tag tag-green">THANUJA</span></td><td class="good">Mínimo</td><td>Sin impacto climático significativo</td></tr>
+        <tr><td><span class="tag tag-purple">SEABISCUIT</span></td><td class="good">Mínimo</td><td>Astillero cubierto Freire — entorno controlado</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card">
+    <div class="card-title">📋 Calidad de cierre</div>
+    <table class="data-table">
+      <thead><tr><th>Proyecto</th><th>Aceptación</th><th>Pendiente</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag tag-purple">SEABISCUIT</span></td><td class="good">Firmada ✓</td><td>—</td></tr>
+        <tr><td><span class="tag tag-orange">LAMMOUCHE</span></td><td class="good">Firmada 20/04 ✓</td><td>Sika ventanas grandes (diferido)</td></tr>
+        <tr><td><span class="tag tag-green">THANUJA</span></td><td class="good">Firmada 14/04 ✓</td><td>Monitoreo color gris (pasivo)</td></tr>
+        <tr><td><span class="tag tag-blue">AVALON</span></td><td class="bad">Pendiente ✗</td><td>Repetición popa ejecutada — en revisión</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- EMPRESAS -->
+<div class="section-title">Análisis transversal de empresas contratistas</div>
+<div class="card" style="overflow-x:auto;margin-bottom:16px">
+  <div class="card-title">Cuadro de rendimiento por empresa · todos los proyectos</div>
+  <table class="data-table">
+    <thead>
+      <tr><th>Empresa</th><th>AVALON</th><th>LAMMOUCHE</th><th>THANUJA</th><th>SEABISCUIT</th><th>Rendimiento</th><th>Observación crítica</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="tag tag-orange">993 DOST</span></td>
+        <td>✅ 6.386 h nominales</td><td>✅ Obra 6398</td><td>—</td><td>✅ Fairing 6307</td>
+        <td><span class="rend-60 rend-badge">60%</span></td>
+        <td><strong class="bad">2.554 h pérdida productiva AVALON.</strong> 55 €/h productiva vs 32–33 €/h NP/Olimpos — 67% más caro por mismo rendimiento efectivo.</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-green">991 OLIMPOS</span></td>
+        <td>✅ 2.579 h</td><td>✅ 6390 + 6398</td><td>✅ Presente</td><td>—</td>
+        <td><span class="rend-100 rend-badge">100%</span></td>
+        <td>Rendimiento constante en todos los proyectos. 33 €/h. Referencia de calidad y eficiencia.</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-red">992 CONSTR. LINE</span></td>
+        <td>—</td><td>✅ 20% últimos 3 días</td><td>✅ 262 h (40–50%)</td><td>—</td>
+        <td><span class="rend-badge" style="background:#fee8e6;color:#8c1a1a">20–50%</span></td>
+        <td><strong class="bad">Rendimiento decreciente conforme avanza el proyecto.</strong> Grave en remates (Lamm) y masillas (Thanuja). Las 262h al ~45% en Thanuja → ~118h reales. Contribuyó al cambio de personal 26/03.</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-blue">Nautipaints (resto)</span></td>
+        <td>✅ 4.734 h</td><td>✅ Equipo propio</td><td>✅ Casellas + Roselló</td><td>✅ Sempere + Rosa M.</td>
+        <td><span class="rend-100 rend-badge">100%</span></td>
+        <td>Rendimiento constante 100%. 32,4 €/h productiva (AVALON). Base productiva y de calidad de la temporada.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="grid-2">
+  <div class="card">
+    <div class="card-title">Pérdida productiva estimada por empresa y proyecto</div>
+    <div class="chart-wrap"><canvas id="chartPerdida" height="230"></canvas></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Coste por hora productiva real — AVALON (base comparativa)</div>
+    <table class="data-table">
+      <thead><tr><th>Empresa</th><th>H. nom.</th><th>Rend.</th><th>H. prod.</th><th>Coste total</th><th>€/h prod.</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag tag-orange">DOST</span></td><td class="num">6.386</td><td class="num warn">60%</td><td class="num warn">3.832</td><td class="num">210.738 €</td><td class="num bad"><strong>55,0 €/h</strong></td></tr>
+        <tr><td><span class="tag tag-green">OLIMPOS</span></td><td class="num">2.579</td><td class="num good">100%</td><td class="num good">2.579</td><td class="num">85.107 €</td><td class="num good"><strong>33,0 €/h</strong></td></tr>
+        <tr><td><span class="tag tag-blue">Nautipaints</span></td><td class="num">4.734</td><td class="num good">100%</td><td class="num good">4.734</td><td class="num">153.234 €</td><td class="num good"><strong>32,4 €/h</strong></td></tr>
+      </tbody>
+      <tfoot><tr><td><strong>Total</strong></td><td class="num">13.699</td><td class="num warn">76,7%</td><td class="num">11.145</td><td class="num">449.079 €</td><td class="num warn"><strong>40,3 €/h</strong></td></tr></tfoot>
+    </table>
+    <div style="margin-top:12px;padding:10px;background:#fff0ee;border-radius:8px;font-size:11px;border:1px solid #f0b8b0">
+      DOST (<strong class="bad">55,0 €/h</strong>) es <strong>67% más caro</strong> que Olimpos o Nautipaints por el mismo resultado productivo efectivo. El rendimiento al 60% eleva artificialmente el coste/hora productiva.
+    </div>
+  </div>
+</div>
+
+<!-- GRÁFICAS ADICIONALES -->
+<div class="section-title">Análisis gráfico — Comparativas adicionales</div>
+<div class="grid-2">
+  <div class="card">
+    <div class="card-title">Duración real (días) por proyecto</div>
+    <div class="chart-wrap"><canvas id="chartDuracion" height="230"></canvas></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Radar comparativo de gestión por proyecto</div>
+    <div class="chart-wrap"><canvas id="chartRadar" height="230"></canvas></div>
+  </div>
+</div>
+
+<div class="card" style="margin-top:16px">
+  <div class="card-title">Facturación por proyecto — Temporada 2025-2026</div>
+  <div class="chart-wrap"><canvas id="chartFacturacion" height="200"></canvas></div>
+</div>
+
+<!-- RIESGOS -->
+<div class="section-title">Riesgos pendientes y recomendaciones</div>
+<div class="card">
+  <table class="data-table">
+    <thead><tr><th>Prioridad</th><th>Proyecto</th><th>Riesgo / Acción</th><th>Estado</th><th>Recomendación</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag tag-red">🔴 Alta</span></td><td>AVALON</td><td>Revisión zona popa post-repetición 4–7/06</td><td class="warn">Pendiente — barco limpio</td><td>Confirmar resultado con Wrede. Carta de aceptación definitiva.</td></tr>
+      <tr><td><span class="tag tag-red">🔴 Alta</span></td><td>AVALON</td><td>Carta de aceptación pendiente</td><td class="bad">No firmada</td><td>Cerrar con Capitán + Wrede una vez revisada la popa.</td></tr>
+      <tr><td><span class="tag tag-red">🔴 Alta</span></td><td>AVALON</td><td>Desviación +27% horas · touch-ups Port Denia sin cuantificar</td><td class="bad">Pendiente conciliación</td><td>Separar en partes: remates, repeticiones y trabajos extra. Cerrar parte diario por fases.</td></tr>
+      <tr><td><span class="tag tag-red">🔴 Alta</span></td><td>Global</td><td>DOST al 60% — 55€/h productiva vs 32–33€/h resto</td><td class="warn">En revisión</td><td>Evaluar continuidad DOST próxima temporada. Coste real si se reemplaza por Olimpos o NP: ahorro estimado de 40–50€/h productiva.</td></tr>
+      <tr><td><span class="tag tag-orange">🟠 Media</span></td><td>Global</td><td>Construction Line: rendimiento decreciente (20% últimos días Lamm)</td><td class="warn">Patrón documentado 2 obras</td><td>No usar en fases de remates ni aplicaciones finales. Solo preparación bajo supervisión continua.</td></tr>
+      <tr><td><span class="tag tag-orange">🟠 Media</span></td><td>AVALON</td><td>Materiales no conciliados: 73.728 € vs 118.662 €</td><td class="warn">Sin resolver</td><td>Unificar origen almacén vs compra directa antes del cierre de facturación final.</td></tr>
+      <tr><td><span class="tag tag-orange">🟠 Media</span></td><td>AVALON</td><td>Ampliaciones 2–4 semanas sin formalizar</td><td class="bad">Sin documentar</td><td>Para próxima temporada: formalizar todo cambio de alcance con flash report + registro en planning desde el primer día.</td></tr>
+      <tr><td><span class="tag tag-orange">🟠 Media</span></td><td>LAMMOUCHE</td><td>Sika ventanas grandes babor y estribor diferido</td><td class="warn">Acordado con Capitán Max</td><td>Planificar antes de inicio temporada 2026-27. Confirmar fecha con Max.</td></tr>
+      <tr><td><span class="tag tag-green">🟢 Control</span></td><td>THANUJA</td><td>Monitoreo color gris proa</td><td class="good">Seguimiento pasivo acordado</td><td>Si diferencia notable en futuras revisiones, tomar medición Boero como referencia (ya documentado).</td></tr>
+      <tr><td><span class="tag tag-green">🟢 Control</span></td><td>Global</td><td>Buffer climático Port Denia — viento invernal recurrente</td><td class="good">Para planificación futura</td><td>Incluir mínimo 5–8 días buffer en proyectos 50+ días. Exigir coberturas estancas antes del inicio.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- KPI BONUS -->
+<div class="section-title">Indicadores de desempeño — Acuerdo de Bonus 2025-2026 (PM: Juan Galmés)</div>
+
+<div class="notice notice-blue" style="margin-bottom:16px">
+  <span style="font-size:20px">📄</span>
+  <div><strong>Base: Acuerdo de Bonus por Objetivos — Sea Spray Nauti SL / Juan Galmés Seguí.</strong> Bonus equivalente al <strong>20% del salario bruto anual</strong>, distribuido en 4 KPIs con ponderación del 25% cada uno. Evaluación final: julio 2026 · Abono si procede: agosto 2026. <strong>Proyectos Denia heredados a partir del 14/02/2026</strong> (relevo de Cristian Liébana), lo que condiciona el control inicial de AVALON, LAMMOUCHE y THANUJA.</div>
+</div>
+
+<!-- CONDICIONES GENERALES -->
+<div class="card" style="margin-bottom:16px">
+  <div class="card-title"><div class="dot" style="background:var(--gold)"></div>Condiciones generales del bonus (requisito simultáneo)</div>
+  <table class="data-table">
+    <thead><tr><th>Condición</th><th>Criterio</th><th>Estado estimado</th><th>Observación</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Permanencia</strong></td>
+        <td>Contrato activo a 31/07/2026</td>
+        <td><span class="tag tag-green">✓ Previsto</span></td>
+        <td>Sin cambios contractuales conocidos</td>
+      </tr>
+      <tr>
+        <td><strong>EBITDA empresa</strong></td>
+        <td>EBITDA real ≥ 95% EBITDA presupuestado 2025-26</td>
+        <td><span class="tag tag-orange">⚠️ Pendiente confirmación</span></td>
+        <td>Dato a nivel empresa — no disponible en este informe</td>
+      </tr>
+      <tr>
+        <td><strong>Evaluación individual</strong></td>
+        <td>No Conformidades de cliente/proyecto &lt; 3 · Sin amonestaciones</td>
+        <td><span class="tag tag-orange">⚠️ Por evaluar</span></td>
+        <td>Popa AVALON y coberturas pendientes de calificación final. Denia heredado 14/02.</td>
+      </tr>
+      <tr>
+        <td><strong>Control repeticiones</strong></td>
+        <td>Coste total repeticiones &lt; 7% EBITDA real empresa</td>
+        <td><span class="tag tag-orange">⚠️ Por cuantificar</span></td>
+        <td>Repetición popa AVALON (obra 6266) pendiente de valoración económica definitiva</td>
+      </tr>
+      <tr>
+        <td><strong>Horas/materiales (desplazado)</strong></td>
+        <td>Cumplimiento → 25% aumento nómina mientras desplazado</td>
+        <td><span class="tag tag-green">✓ Favorable</span></td>
+        <td>Seabiscuit –50,7% horas; Lammouche y Thanuja dentro de presupuesto</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- KPIs POR PROYECTO -->
+<div class="card" style="overflow-x:auto;margin-bottom:16px">
+  <div class="card-title"><div class="dot" style="background:var(--accent)"></div>Evaluación de los 4 KPIs por proyecto — ponderación 25% cada uno</div>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Proyecto</th>
+        <th>KPI 1 · No Conformidades &lt;3</th>
+        <th>KPI 2 · Documentación Ontime</th>
+        <th>KPI 3 · Plazos ±5 días</th>
+        <th>KPI 4 · Eficiencia Recursos</th>
+        <th>Resultado global</th>
+        <th>Nota</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="proj-cell"><div class="proj-dot dot-sea"></div><strong>SEABISCUIT</strong></div><div style="font-size:10px;color:var(--muted);margin-top:3px">PM desde inicio</div></td>
+        <td><span class="tag tag-green">✓ 0 NC conocidas</span></td>
+        <td><span class="tag tag-green">✓ Informe generado</span></td>
+        <td><span class="tag tag-green">✓ Cerrado en plazo · Carta firmada</span></td>
+        <td><span class="tag tag-green">✓ H.Reales 1.107h vs 2.245h prev. (–50,7%) · Mat. 26.387€ vs 33.777€ presup.</span></td>
+        <td><strong class="good">4/4 ✓</strong><br><span class="tag tag-green" style="margin-top:4px">Favorable</span></td>
+        <td>Proyecto bajo gestión directa desde el inicio. Resultado del KPI más limpio de la temporada.</td>
+      </tr>
+      <tr>
+        <td><div class="proj-cell"><div class="proj-dot dot-avalon"></div><strong>AVALON</strong></div><div style="font-size:10px;color:var(--orange);margin-top:3px">Heredado 14/02/2026</div></td>
+        <td><span class="tag tag-orange">⚠️ Coberturas + popa — por calificar</span></td>
+        <td><span class="tag tag-orange">⚠️ Informe en curso · proyecto abierto</span></td>
+        <td><span class="tag tag-red">✗ Carta aceptación pendiente</span></td>
+        <td><span class="tag tag-red">✗ +27% desviación horas (10.029h → ~12.900h real) · en parte por DOST 60% y ampliaciones</span></td>
+        <td><strong class="bad">1–2/4</strong><br><span class="tag tag-red" style="margin-top:4px">Pendiente cierre</span></td>
+        <td>Proyecto de 7 meses heredado al 90% el 14/02. Las desviaciones de horas y el cierre pendiente son consecuencia en gran parte de la situación preexistente y del factor DOST. La NC de coberturas/popa está pendiente de calificación formal.</td>
+      </tr>
+      <tr>
+        <td><div class="proj-cell"><div class="proj-dot dot-lamm"></div><strong>LAMMOUCHE</strong></div><div style="font-size:10px;color:var(--orange);margin-top:3px">Heredado 14/02/2026</div></td>
+        <td><span class="tag tag-green">✓ Sin NC de cliente · lluvias ajenas a NP</span></td>
+        <td><span class="tag tag-green">✓ Informe generado · acta cierre 20/04</span></td>
+        <td><span class="tag tag-green">✓ Cerrado 20/04 · botadura conseguida · obra admin 6398 como solución operativa</span></td>
+        <td><span class="tag tag-green">✓ Horas ajustadas mediante obra admin · materiales dentro de presupuesto</span></td>
+        <td><strong class="good">4/4 ✓</strong><br><span class="tag tag-green" style="margin-top:4px">Favorable</span></td>
+        <td>A pesar de heredarlo iniciado y de las lluvias (factor externo), se consiguió cerrar en plazo con carta de aceptación. Gestión de la obra admin 6398 como respuesta correcta a los retrasos externos.</td>
+      </tr>
+      <tr>
+        <td><div class="proj-cell"><div class="proj-dot dot-thanuja"></div><strong>THANUJA</strong></div><div style="font-size:10px;color:var(--orange);margin-top:3px">Heredado 14/02/2026</div></td>
+        <td><span class="tag tag-green">✓ Diferencia color → ICOMIA Ch.8 · no imputable a NP · documentado</span></td>
+        <td><span class="tag tag-green">✓ Informe generado · cierre documentado</span></td>
+        <td><span class="tag tag-green">✓ Cerrado 14/04 con carta firmada</span></td>
+        <td><span class="tag tag-green">✓ Consumo de horas y materiales por debajo de previsto</span></td>
+        <td><strong class="good">4/4 ✓</strong><br><span class="tag tag-green" style="margin-top:4px">Favorable</span></td>
+        <td>A pesar de la alta presión operativa (bolsas de aire, cambio de personal, color crítico), se cerró correctamente con toda la documentación en orden. Modelo de gestión de incidencias a replicar.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- RESUMEN KPI -->
+<div class="grid-2" style="margin-bottom:16px">
+  <div class="card">
+    <div class="card-title"><div class="dot" style="background:var(--green)"></div>Resumen de cumplimiento KPI — proyectos bajo gestión directa desde el inicio</div>
+    <table class="data-table">
+      <tbody>
+        <tr><td><strong>SEABISCUIT</strong> (PM desde inicio)</td><td class="good"><strong>4/4 KPIs ✓</strong></td></tr>
+        <tr><td><strong>LAMMOUCHE</strong> (heredado 14/02)</td><td class="good"><strong>4/4 KPIs ✓</strong></td></tr>
+        <tr><td><strong>THANUJA</strong> (heredado 14/02)</td><td class="good"><strong>4/4 KPIs ✓</strong></td></tr>
+        <tr><td><strong>AVALON</strong> (heredado 14/02)</td><td class="warn"><strong>Pendiente cierre · 1–2/4</strong></td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:12px;padding:10px;background:#edfaf2;border-radius:8px;font-size:11px;border:1px solid #90dbb0">
+      <strong>3 de 4 proyectos</strong> con cumplimiento completo de los 4 KPIs. El proyecto AVALON, heredado al 90% de su ejecución con desviaciones preexistentes, es el único pendiente de cierre y calificación definitiva.
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title"><div class="dot" style="background:var(--orange)"></div>Contexto clave — proyectos heredados en Denia</div>
+    <div style="font-size:12px;line-height:1.7;color:var(--text)">
+      <p style="margin-bottom:10px">Juan Galmés asumió la gestión de los proyectos de Port Denia el <strong>14 de febrero de 2026</strong>, en relevo de Cristian Liébana. En ese momento, los proyectos Avalon, Lammouche y Thanuja estaban ya en ejecución aproximadamente al <strong>90% de su desarrollo</strong>.</p>
+      <p style="margin-bottom:10px">Esta situación implica asumir proyectos sin haber participado en su arranque, desconocer acuerdos previos y gestionar compromisos ya adquiridos. A efectos del acuerdo de bonus, se debe valorar el <strong>desempeño real desde la fecha de incorporación</strong>, no el resultado global acumulado antes de ese punto.</p>
+      <p>Las incidencias de coberturas, almacenamiento y algunas desviaciones de AVALON son en parte consecuencia de decisiones tomadas antes del 14/02/2026.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CONCLUSIONES -->
+<div class="section-title">Conclusiones de la temporada 2025-2026</div>
+<div class="notice notice-purple">
+  
+  <div><strong>SEABISCUIT</strong> — Primer proyecto de la temporada, dirigido directamente desde Vigo. Sistema Awlgrip completo sobre S/Y 41,83m LOA. Horas reales 1.107h vs 2.245h previstas (–50,7%). Margen del 75,4%. Cerrado con carta de aceptación. Sentó las bases operativas de la temporada.</div>
+</div>
+<div class="notice notice-blue">
+  <span style="font-size:22px">📊</span>
+  <div><strong>AVALON</strong> — Proyecto dominante en volumen (798K€ facturación, 7 meses). Desviación +27% en horas con dos causas principales: DOST al 60% (2.554h perdidas, €55/h productiva) y trabajos extra/ampliaciones no planificadas (2–4 semanas de impacto). Cambio de PM en febrero gestionado correctamente. <strong class="bad">Pendiente cierre definitivo</strong> — carta aceptación tras revisión popa.</div>
+</div>
+<div class="notice notice-orange">
+  <span style="font-size:22px">⚠️</span>
+  <div><strong>LAMMOUCHE</strong> — Condicionado por el invierno de Port Denia (8+ días perdidos). Obra admin 6398 abierta por la Dirección como respuesta operativa correcta para cumplir el compromiso de botadura. Zonas pintadas por cortes según especificación CCS. Construction Line al 20% en los remates: problema documentado. <strong class="good">Cerrado con carta de aceptación 20/04.</strong></div>
+</div>
+<div class="notice notice-green">
+  <span style="font-size:22px">✅</span>
+  <div><strong>THANUJA</strong> — Mejor ratio calidad/cierre de la temporada (margen 97,5%). A pesar del alcance extra (bolsas de aire), el cambio de personal y la incidencia de color crítico (ICOMIA Chapter 8 — no imputable a Nautipaints), se cerró con carta firmada el 14/04. Gestión de la incidencia de color con Boero técnicamente correcta y bien documentada. <strong>Modelo de cierre a replicar.</strong></div>
+</div>
+
+</main>
+<footer>NAUTIPAINTS · Informe Comparativo Temporada 2025-2026 · v2 · 4 Proyectos · Freire Vigo + Port Denia · PM Juan Galmés · 16/06/2026</footer>
+
+<script>
+const ACCENT='#1a9fd4',GOLD='#c99b22',GREEN='#1e9e55',RED='#d43333',ORANGE='#d4721a',PURPLE='#8b3fad';
+const AVALON='rgba(32,96,160,.75)',LAMM='rgba(192,80,16,.75)',THAN='rgba(26,128,69,.75)',SEA='rgba(106,32,192,.75)';
+const gridOpts={color:'rgba(212,230,240,.6)'};
+const ttpOpts={backgroundColor:'#fff',borderColor:'#d4e6f0',borderWidth:1,titleColor:'#1a2636',bodyColor:'#1a2636',padding:12};
+const bFont={family:"'Helvetica Neue',Arial,sans-serif",size:12};
+
+new Chart(document.getElementById('chartHorasComp'),{
+  type:'bar',
+  data:{
+    labels:['AVALON','LAMMOUCHE','THANUJA (6344)'],
+    datasets:[
+      {label:'Horas nominales',data:[13699,2250,2203],backgroundColor:'rgba(26,159,212,.35)',borderColor:ACCENT,borderWidth:2,borderRadius:5},
+      {label:'Horas productivas equiv.',data:[11145,1700,35],backgroundColor:[AVALON,LAMM,THAN],borderColor:[AVALON,LAMM,THAN],borderWidth:2,borderRadius:5}
+    ]
+  },
+  options:{responsive:true,plugins:{legend:{labels:{color:'#1a2636',font:bFont}},tooltip:{...ttpOpts,callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.y.toLocaleString('es-ES')} h`}}},
+  scales:{x:{ticks:{color:'#5a7a8e',font:bFont},grid:gridOpts},y:{ticks:{color:'#5a7a8e'},grid:gridOpts,title:{display:true,text:'Horas',color:'#5a7a8e'}}}}
+});
+
+new Chart(document.getElementById('chartRendComp'),{
+  type:'bar',
+  data:{
+    labels:['993 DOST','991 OLIMPOS','992 C.Line\n(general)','992 C.Line\n(últimos 3d Lamm)','Nautipaints\n(resto)'],
+    datasets:[{label:'Rendimiento %',data:[60,100,45,20,100],
+    backgroundColor:['rgba(212,114,26,.75)','rgba(30,158,85,.75)','rgba(212,67,51,.65)','rgba(212,67,51,.9)','rgba(26,159,212,.75)'],
+    borderColor:[ORANGE,GREEN,RED,RED,ACCENT],borderWidth:2,borderRadius:5}]
+  },
+  options:{responsive:true,plugins:{legend:{display:false},tooltip:{...ttpOpts,callbacks:{label:c=>` Rendimiento: ${c.parsed.y}%`}}},
+  scales:{x:{ticks:{color:'#5a7a8e',font:{...bFont,size:10}},grid:gridOpts},y:{ticks:{color:'#5a7a8e',callback:v=>v+'%'},grid:gridOpts,min:0,max:110,title:{display:true,text:'Rendimiento (%)',color:'#5a7a8e'}}}}
+});
+
+new Chart(document.getElementById('chartPerdida'),{
+  type:'bar',
+  data:{
+    labels:['AVALON\nDOST 60%','LAMMOUCHE\nConstr.Line ~35%','THANUJA\nConstr.Line ~45%'],
+    datasets:[
+      {label:'Horas nominales',data:[6386,300,262],backgroundColor:'rgba(26,159,212,.35)',borderColor:ACCENT,borderWidth:2,borderRadius:5},
+      {label:'Horas productivas equiv.',data:[3832,105,118],backgroundColor:['rgba(212,114,26,.7)','rgba(212,67,51,.65)','rgba(212,67,51,.65)'],borderColor:[ORANGE,RED,RED],borderWidth:2,borderRadius:5}
+    ]
+  },
+  options:{responsive:true,plugins:{legend:{labels:{color:'#1a2636',font:bFont}},tooltip:{...ttpOpts,callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.y.toLocaleString()} h`}}},
+  scales:{x:{ticks:{color:'#5a7a8e',font:{...bFont,size:10}},grid:gridOpts},y:{ticks:{color:'#5a7a8e'},grid:gridOpts,title:{display:true,text:'Horas',color:'#5a7a8e'}}}}
+});
+
+new Chart(document.getElementById('chartDuracion'),{
+  type:'bar',
+  data:{
+    labels:['SEABISCUIT','AVALON','LAMMOUCHE','THANUJA'],
+    datasets:[{label:'Días de proyecto',data:[65,210,95,43],
+    backgroundColor:[SEA,AVALON,LAMM,THAN],borderColor:[SEA,AVALON,LAMM,THAN],borderWidth:2,borderRadius:6}]
+  },
+  options:{responsive:true,plugins:{legend:{display:false},tooltip:{...ttpOpts,callbacks:{label:c=>` Duración: ${c.parsed.y} días`}}},
+  scales:{x:{ticks:{color:'#5a7a8e',font:{...bFont,size:11}},grid:gridOpts},y:{ticks:{color:'#5a7a8e'},grid:gridOpts,title:{display:true,text:'Días',color:'#5a7a8e'}}}}
+});
+
+new Chart(document.getElementById('chartRadar'),{
+  type:'radar',
+  data:{
+    labels:['Rend. ponderado','Calidad cierre','Control plazo','Gestión incidencias','Aceptación cliente'],
+    datasets:[
+      {label:'SEABISCUIT',data:[100,85,85,85,90],backgroundColor:'rgba(106,32,192,.2)',borderColor:'rgba(106,32,192,.8)',pointBackgroundColor:'rgba(106,32,192,.8)',borderWidth:2},
+      {label:'AVALON',data:[77,60,52,70,65],backgroundColor:'rgba(32,96,160,.2)',borderColor:'rgba(32,96,160,.8)',pointBackgroundColor:'rgba(32,96,160,.8)',borderWidth:2},
+      {label:'LAMMOUCHE',data:[70,75,62,65,80],backgroundColor:'rgba(192,80,16,.2)',borderColor:'rgba(192,80,16,.8)',pointBackgroundColor:'rgba(192,80,16,.8)',borderWidth:2},
+      {label:'THANUJA',data:[75,92,75,82,95],backgroundColor:'rgba(26,128,69,.2)',borderColor:'rgba(26,128,69,.8)',pointBackgroundColor:'rgba(26,128,69,.8)',borderWidth:2}
+    ]
+  },
+  options:{responsive:true,plugins:{legend:{labels:{color:'#1a2636',font:bFont}},tooltip:{...ttpOpts}},
+  scales:{r:{ticks:{color:'#5a7a8e',backdropColor:'transparent',stepSize:20},grid:{color:'rgba(212,230,240,.6)'},pointLabels:{color:'#1a2636',font:{...bFont,size:11}},min:0,max:100}}}
+});
+
+new Chart(document.getElementById('chartFacturacion'),{
+  type:'doughnut',
+  data:{
+    labels:['AVALON (798.179 €)','SEABISCUIT (157.847 €)','LAMMOUCHE (155.330 €)','THANUJA (46.368 €)'],
+    datasets:[{
+      data:[798179,157847,155330,46368],
+      backgroundColor:[AVALON,SEA,LAMM,THAN],
+      borderColor:['rgba(32,96,160,.9)','rgba(106,32,192,.9)','rgba(192,80,16,.9)','rgba(26,128,69,.9)'],
+      borderWidth:3
+    }]
+  },
+  options:{responsive:true,plugins:{
+    legend:{labels:{color:'#1a2636',font:{...bFont,size:11}}},
+    tooltip:{...ttpOpts,callbacks:{label:c=>` ${c.label.split(' ')[0]}: ${c.parsed.toLocaleString('es-ES',{minimumFractionDigits:0})} €`}}
+  }}
+});
+</script>
+</body>
+</html>
